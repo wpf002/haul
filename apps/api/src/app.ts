@@ -3,9 +3,10 @@ import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
 import { DEFAULT_PANTRY, ParsedRecipe } from '@haul/core';
-import { fetchRecipe, parseRecipeText } from '@haul/recipe-parser';
-import { AnthropicReranker, buildNeeds, resolveBasket } from '@haul/resolver';
-import { type CatalogAdapter, createPkce, InstacartClient, KrogerClient, RetailerError } from '@haul/retailers';
+import { ClaudeRecipeExtractor, extractFromPageText, fetchRecipe, parseRecipeText, type RecipeExtractor } from '@haul/recipe-parser';
+import { DEMO_CATALOG, DEMO_STORES } from '@haul/resolver/demo';
+import { AnthropicReranker, buildNeeds, resolveBasket, unresolvedLine } from '@haul/resolver';
+import { type CatalogAdapter, createPkce, FixtureCatalog, InstacartClient, KrogerClient, RetailerError } from '@haul/retailers';
 import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { TokenBox } from './lib/crypto';
@@ -23,11 +24,15 @@ export interface AppDeps {
   catalog?: CatalogAdapter;
   /** Skip DNS in tests. */
   urlGuard?: (u: URL) => Promise<unknown>;
+  /** LLM recipe reader for unstructured pages. null disables it. */
+  extractor?: RecipeExtractor | null;
 }
 
 const DRAFT_TTL_MS = 24 * 3600 * 1000;
 const MAX_RECIPES = 5;
 const MAX_NEEDS = 80;
+const DEMO_TOKEN = 'demo';
+const INSTACART_HOME = 'https://www.instacart.com/';
 
 const ImportBody = z.union([
   z.object({ url: z.string().url().max(2048) }),
@@ -68,7 +73,8 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
   const kroger =
     deps.kroger ??
     new KrogerClient({ clientId: env.KROGER_CLIENT_ID, clientSecret: env.KROGER_CLIENT_SECRET, redirectUri: env.KROGER_REDIRECT_URI, apiBase: env.KROGER_API_BASE });
-  const catalog = deps.catalog ?? kroger;
+  const demo = env.DEMO_MODE;
+  const catalog = deps.catalog ?? (demo ? new FixtureCatalog(DEMO_CATALOG) : kroger);
   const instacart =
     deps.instacart !== undefined
       ? deps.instacart
@@ -76,6 +82,8 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
         ? new InstacartClient({ apiKey: env.INSTACART_API_KEY, apiBase: env.INSTACART_API_BASE, linkbackUrl: env.INSTACART_LINKBACK_URL })
         : null;
   const reranker = env.ANTHROPIC_API_KEY ? new AnthropicReranker(env.ANTHROPIC_API_KEY, env.RERANK_MODEL) : null;
+  const extractor =
+    deps.extractor !== undefined ? deps.extractor : env.ANTHROPIC_API_KEY ? new ClaudeRecipeExtractor(env.ANTHROPIC_API_KEY, env.EXTRACT_MODEL) : null;
   const urlGuard = deps.urlGuard ?? ((u: URL) => assertPublicUrl(u.toString()));
 
   const app = Fastify({
@@ -111,6 +119,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     (await store.getPantry(userId)) ?? { ...DEFAULT_PANTRY, krogerLocationId: null, modality: 'PICKUP' };
 
   async function krogerAccessToken(userId: string): Promise<string | null> {
+    if (demo) return DEMO_TOKEN;
     const link = await store.getLink(userId, 'kroger');
     if (!link) return null;
     const aad = `${userId}:kroger`;
@@ -134,6 +143,9 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
 
   app.get('/health', async () => ({ ok: true }));
 
+  // What this server can do, so the web app only offers working paths.
+  app.get('/config', async () => ({ demo, instacart: instacart !== null || demo, readsAnyPage: extractor !== null }));
+
   app.post('/recipes/import', async (req, reply) => {
     await user(req, reply);
     const body = ImportBody.parse(req.body);
@@ -144,10 +156,13 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     } catch (e) {
       return reply.code(422).send({ error: `Couldn't load that page: ${(e as Error).message}` });
     }
-    if (!result.recipe || result.recipe.ingredients.length === 0) {
-      return reply.code(422).send({ error: 'No recipe found on that page. Paste the ingredient list instead.' });
-    }
-    return result.recipe;
+    // Structured data first, then an "Ingredients" heading in the page text, then the LLM.
+    const recipe =
+      (result.recipe?.ingredients.length ? result.recipe : null) ??
+      extractFromPageText(result.html, body.url) ??
+      (extractor ? await extractor.extract(result.html, body.url) : null);
+    if (!recipe) return reply.code(422).send({ error: 'No recipe found on that page. Paste the ingredient list instead.' });
+    return recipe;
   });
 
   app.post('/baskets', async (req, reply) => {
@@ -164,7 +179,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
       if (!locationId) return reply.code(400).send({ error: 'Pick a Kroger store first.' });
       lines = await resolveBasket(needs, catalog, { locationId, pantry, reranker });
     } else {
-      lines = needs.map((need) => ({ need, pick: null, packs: 1, score: 0, confidence: 'check' as const, reason: 'Instacart picks the product', alternates: [] }));
+      lines = needs.map((need) => unresolvedLine(need, 'Instacart picks the product'));
     }
     const draftId = await store.createDraft({
       userId,
@@ -193,15 +208,15 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     const token = await krogerAccessToken(userId);
     if (!token) return reply.code(401).send({ error: 'Connect your Kroger account first.', authUrl: '/auth/kroger/start' });
 
-    await kroger.addToCart(token, body.lines.map((l) => ({ upc: l.upc, quantity: l.packs })), body.modality);
+    if (!demo) await kroger.addToCart(token, body.lines.map((l) => ({ upc: l.upc, quantity: l.packs })), body.modality);
     await store.deleteDraft(id);
     await store.logCartEvent(userId, 'kroger', body.lines.length);
-    return { added: body.lines.length, checkoutUrl: kroger.checkoutUrl() };
+    return { added: body.lines.length, checkoutUrl: kroger.checkoutUrl(), demo };
   });
 
   app.post('/baskets/:id/instacart', { config: { rateLimit: { max: 10, timeWindow: '1 minute' } } }, async (req, reply) => {
     const userId = await user(req, reply);
-    if (!instacart) return reply.code(503).send({ error: 'Instacart is not configured' });
+    if (!instacart && !demo) return reply.code(503).send({ error: 'Instacart is not configured' });
     const { id } = z.object({ id: z.string().max(64) }).parse(req.params);
     const { keys } = z.object({ keys: z.array(z.string()).min(1).max(MAX_NEEDS) }).parse(req.body);
     const draft = await store.getDraft(id, userId);
@@ -209,10 +224,10 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     const wanted = new Set(keys);
     const needs = draft.lines.map((l) => l.need).filter((n) => wanted.has(n.key));
     if (needs.length === 0) return reply.code(400).send({ error: 'Nothing selected' });
-    const { url } = await instacart.createList({ title: draft.title, needs });
+    const { url } = instacart ? await instacart.createList({ title: draft.title, needs }) : { url: INSTACART_HOME };
     await store.deleteDraft(id);
     await store.logCartEvent(userId, 'instacart', needs.length);
-    return { url };
+    return { url, demo: instacart === null };
   });
 
   // ---------- Kroger account link ----------
@@ -246,7 +261,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
 
   app.get('/auth/kroger/status', async (req, reply) => {
     const userId = await user(req, reply);
-    return { connected: (await store.getLink(userId, 'kroger')) !== null };
+    return { connected: demo || (await store.getLink(userId, 'kroger')) !== null };
   });
 
   app.delete('/auth/kroger', async (req, reply) => {
@@ -258,7 +273,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
   app.get('/kroger/locations', async (req, reply) => {
     await user(req, reply);
     const { zip } = z.object({ zip: z.string().regex(/^\d{5}$/) }).parse(req.query);
-    return kroger.locations(zip);
+    return demo ? DEMO_STORES : kroger.locations(zip);
   });
 
   // ---------- pantry ----------

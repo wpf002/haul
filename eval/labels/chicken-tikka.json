@@ -1,0 +1,15 @@
+{
+  "recipe": "chicken-tikka.txt",
+  "locationId": "01400943",
+  "expect": {
+    "boneless skinless chicken thighs": { "accept": ["chicken thighs"], "reject": ["breast"], "packs": 2 },
+    "plain greek yogurt": { "accept": ["greek yogurt"] },
+    "garam masala": { "accept": ["garam masala"] },
+    "ground turmeric": { "accept": ["turmeric"] },
+    "ginger": { "accept": ["ginger"] },
+    "tomato paste": { "accept": ["tomato paste"], "packs": 1 },
+    "coconut milk": { "accept": ["coconut milk"], "packs": 1 },
+    "jasmine rice": { "accept": ["jasmine rice"], "packs": 1 }
+  },
+  "absent": ["salt", "cilantro"]
+}

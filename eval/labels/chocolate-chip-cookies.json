@@ -1,0 +1,13 @@
+{
+  "recipe": "chocolate-chip-cookies.txt",
+  "locationId": "01400943",
+  "expect": {
+    "baking soda": { "accept": ["baking soda"] },
+    "butter": { "accept": ["unsalted butter"], "packs": 1 },
+    "light brown sugar": { "accept": ["brown sugar"] },
+    "egg": { "accept": ["eggs"], "packs": 1 },
+    "vanilla extract": { "accept": ["vanilla extract"] },
+    "semi-sweet chocolate chips": { "accept": ["chocolate chips"] }
+  },
+  "absent": ["all-purpose flour", "sugar", "salt"]
+}

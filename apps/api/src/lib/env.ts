@@ -18,7 +18,13 @@ const Env = z.object({
   INSTACART_LINKBACK_URL: z.string().url().optional(),
   ANTHROPIC_API_KEY: z.string().default(''),
   RERANK_MODEL: z.string().default('claude-haiku-5-5'),
-});
+  EXTRACT_MODEL: z.string().default('claude-haiku-5-5'),
+  /** Offline catalog and a no-op cart, for running the app without retailer keys. */
+  DEMO_MODE: z
+    .enum(['true', 'false', '1', '0', ''])
+    .default('false')
+    .transform((v) => v === 'true' || v === '1'),
+}).refine((e) => !(e.DEMO_MODE && e.NODE_ENV === 'production'), { message: 'DEMO_MODE cannot run in production', path: ['DEMO_MODE'] });
 export type Env = z.infer<typeof Env>;
 
 export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {

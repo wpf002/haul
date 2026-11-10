@@ -6,6 +6,7 @@ import { rankCandidates, type Scored, toBasketLine } from './score';
 export * from './needs';
 export * from './score';
 export * from './rerank';
+export * from './aisle';
 
 export interface ResolveOptions {
   locationId: string;

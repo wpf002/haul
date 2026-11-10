@@ -12,6 +12,8 @@ describe('ingredient lines', () => {
     ['2 large eggs', { quantity: 2, unit: null, name: 'eggs' }],
     ['500g spaghetti', { quantity: 500, unit: 'g', name: 'spaghetti' }],
     ['1/4 cup chopped fresh parsley', { quantity: 0.25, unit: 'cup', name: 'parsley' }],
+    ['1 tbsp grated fresh ginger', { quantity: 1, unit: 'tbsp', name: 'ginger' }],
+    ['1/2 cup grated parmesan cheese', { quantity: 0.5, unit: 'cup', name: 'grated parmesan cheese' }],
     ['Freshly ground black pepper, to taste', { quantity: null, name: 'black pepper', unmeasured: true }],
     ['Kosher salt', { quantity: null, name: 'kosher salt', unmeasured: true }],
     ['1 tbsp butter or margarine', { quantity: 1, unit: 'tbsp', name: 'butter' }],

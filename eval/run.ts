@@ -2,7 +2,7 @@
  * Resolver eval. The number that decides whether Haul works:
  * share of recipe lines where the top pick is one a sensible shopper would keep.
  *
- *   pnpm eval                    # offline, against the sample catalog
+ *   pnpm eval                    # offline, against the demo catalog
  *   pnpm eval --live             # real Kroger search (needs KROGER_CLIENT_ID/SECRET), recorded to eval/runs/
  *   pnpm eval --only chili       # one label file
  *
@@ -13,7 +13,7 @@ import { join } from 'node:path';
 import { type BasketLine, DEFAULT_PANTRY } from '@haul/core';
 import { parseRecipeText } from '@haul/recipe-parser';
 import { AnthropicReranker, buildNeeds, resolveBasket } from '@haul/resolver';
-import { SAMPLE_CATALOG } from '@haul/resolver/fixtures';
+import { DEMO_CATALOG } from '@haul/resolver/demo';
 import { type CatalogAdapter, FixtureCatalog, KrogerClient, RecordingCatalog } from '@haul/retailers';
 
 interface Expect {
@@ -39,7 +39,7 @@ const dir = import.meta.dirname;
 
 function catalog(): CatalogAdapter {
   const file = join(dir, 'runs', 'catalog-cache.json');
-  if (!live) return new FixtureCatalog(SAMPLE_CATALOG);
+  if (!live) return new FixtureCatalog(DEMO_CATALOG);
   const id = process.env.KROGER_CLIENT_ID;
   const secret = process.env.KROGER_CLIENT_SECRET;
   if (!id || !secret) throw new Error('--live needs KROGER_CLIENT_ID and KROGER_CLIENT_SECRET in .env');
@@ -94,7 +94,7 @@ async function main() {
   }
 
   const pct = (a: number, b: number) => (b ? `${((100 * a) / b).toFixed(1)}%` : 'n/a');
-  console.log(`\nHaul eval · ${live ? 'live Kroger' : 'sample catalog'}${reranker ? ' + rerank' : ''}`);
+  console.log(`\nHaul eval · ${live ? 'live Kroger' : 'demo catalog'}${reranker ? ' + rerank' : ''}`);
   console.log(`Acceptable without edits: ${pass}/${total} (${pct(pass, total)})   target ≥ 85%`);
   for (const [c, v] of Object.entries(byConf)) console.log(`  ${c.padEnd(9)} ${pct(v.ok, v.n).padStart(6)} of ${v.n}`);
   if (failures.length) console.log(`\nFailures:\n  ${failures.join('\n  ')}`);

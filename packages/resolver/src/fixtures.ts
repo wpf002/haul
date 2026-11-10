@@ -1,6 +1,6 @@
 import type { RetailProduct } from '@haul/core';
 
-const p = (productId: string, description: string, brand: string, sizeText: string, price: number, inStock = true): RetailProduct => ({
+const p = (productId: string, description: string, brand: string, sizeText: string, price: number, inStock = true, category = ''): RetailProduct => ({
   retailer: 'kroger',
   productId,
   upc: productId.padStart(13, '0'),
@@ -10,11 +10,13 @@ const p = (productId: string, description: string, brand: string, sizeText: stri
   priceCents: Math.round(price * 100),
   promoPriceCents: null,
   inStock,
-  categories: [],
+  categories: category ? [category] : [],
   imageUrl: null,
 });
 
 /** Hand-made catalog that mimics Kroger search results, for tests and the offline eval. */
+export { p as fixtureProduct };
+
 export const SAMPLE_CATALOG: RetailProduct[] = [
   p('1', 'Kroger Crushed Tomatoes', 'Kroger', '28 oz', 1.79),
   p('2', 'Hunts Crushed Tomatoes', "Hunt's", '28 oz', 2.49),

@@ -1,0 +1,14 @@
+{
+  "recipe": "baked-ziti.txt",
+  "locationId": "01400943",
+  "expect": {
+    "penne": { "accept": ["penne"], "packs": 1 },
+    "italian sausage": { "accept": ["italian.*sausage"] },
+    "marinara sauce": { "accept": ["marinara"], "packs": 1 },
+    "ricotta cheese": { "accept": ["ricotta"], "packs": 1 },
+    "shredded mozzarella cheese": { "accept": ["mozzarella"] },
+    "grated parmesan cheese": { "accept": ["parmesan"] },
+    "dried oregano": { "accept": ["oregano"] }
+  },
+  "absent": ["basil"]
+}

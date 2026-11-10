@@ -1,5 +1,6 @@
 import type { BasketLine, Confidence, PantryProfile, RetailProduct, ShoppingNeed } from '@haul/core';
 import { formatBase, parseRetailSize, planPacks } from '@haul/units';
+import { aisleOf } from './aisle';
 
 const tok = (s: string) => s.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length > 1);
 const stem = (t: string) => t.replace(/(ies)$/, 'y').replace(/(es|s)$/, '');
@@ -13,6 +14,8 @@ const IDENTITY_SHIFTERS = [
   'dressing', 'marinade', 'frozen', 'dried', 'powder', 'paste', 'juice', 'snack', 'bar', 'bars',
   'cooked', 'canned', 'smoked', 'breaded', 'spread', 'dip', 'drink', 'baby', 'pet', 'dog', 'cat',
   'cereal', 'cookie', 'cookies', 'cake', 'pie', 'roasted', 'pickled', 'instant', 'lite', 'light',
+  // "butter" vs "peanut butter", "milk" vs "almond milk"
+  'peanut', 'almond', 'cashew', 'coconut', 'oat', 'soy',
 ];
 const STORE_BRANDS = ['kroger', 'simple truth', 'simple truth organic', 'private selection', 'home chef', 'heritage farm'];
 
@@ -113,17 +116,31 @@ export function explain(need: ShoppingNeed, s: Scored): string {
   return bits.join('; ');
 }
 
+export function needText(need: ShoppingNeed): string | null {
+  if (need.amount === null || need.dimension === 'unknown') return null;
+  return need.dimension === 'count' ? `${formatBase(need.amount, need.dimension)} ct` : formatBase(need.amount, need.dimension);
+}
+
 export function toBasketLine(need: ShoppingNeed, ranked: Scored[], alternates = 4): BasketLine {
   const top = ranked[0];
   const confidence = confidenceOf(need, ranked);
+  const shown = ranked.slice(0, 1 + alternates);
   return {
     need,
+    needText: needText(need),
+    aisle: aisleOf(need, top?.product ?? null),
     // Ambiguous lines still carry a best guess; the UI leaves them unchecked until confirmed.
     pick: top?.product ?? null,
     packs: top?.packs ?? 1,
     score: top?.score ?? 0,
     confidence,
     reason: top ? explain(need, top) : 'no products found at this store',
-    alternates: ranked.slice(1, 1 + alternates).map((r) => r.product),
+    alternates: shown.slice(1).map((r) => r.product),
+    optionPacks: Object.fromEntries(shown.map((r) => [r.product.productId, r.packs])),
   };
+}
+
+/** A line with no product: Instacart handoff, where the retailer picks. */
+export function unresolvedLine(need: ShoppingNeed, reason: string): BasketLine {
+  return { need, needText: needText(need), aisle: aisleOf(need, null), pick: null, packs: 1, score: 0, confidence: 'check', reason, alternates: [], optionPacks: {} };
 }

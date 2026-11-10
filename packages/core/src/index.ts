@@ -57,14 +57,24 @@ export type RetailProduct = z.infer<typeof RetailProduct>;
 export const Confidence = z.enum(['high', 'check', 'ambiguous']);
 export type Confidence = z.infer<typeof Confidence>;
 
+/** Store sections, used to group the review screen like a walk through the store. */
+export const AISLES = ['Produce', 'Meat & Seafood', 'Dairy & Eggs', 'Bakery', 'Pantry', 'Canned Goods', 'Spices', 'Frozen', 'Drinks', 'Other'] as const;
+export const Aisle = z.enum(AISLES);
+export type Aisle = z.infer<typeof Aisle>;
+
 export const BasketLine = z.object({
   need: ShoppingNeed,
+  /** The need in friendly units ("1.5 lb"), or null for "any size". */
+  needText: z.string().nullable(),
+  aisle: Aisle,
   pick: RetailProduct.nullable(),
   packs: z.number().int().positive(),
   score: z.number(),
   confidence: Confidence,
   reason: z.string(),
   alternates: z.array(RetailProduct),
+  /** Packs needed per productId, so swapping a product keeps the amount right. */
+  optionPacks: z.record(z.string(), z.number().int().positive()),
 });
 export type BasketLine = z.infer<typeof BasketLine>;
 
@@ -85,3 +95,5 @@ export const DEFAULT_PANTRY: PantryProfile = {
   preferOrganic: false,
   brandPrefs: {},
 };
+
+export * from './llm';

@@ -1,4 +1,4 @@
-import type { ShoppingNeed } from '@haul/core';
+import { askClaudeJson, type ShoppingNeed } from '@haul/core';
 import { z } from 'zod';
 import type { Scored } from './score';
 
@@ -35,29 +35,12 @@ export class AnthropicReranker implements Reranker {
       'Reply with JSON only: {"order": [ids best first, drop clearly wrong ones], "reason": "<=20 words"}',
     ].join('\n');
 
-    const res = await this.f('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'x-api-key': this.apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: this.model, max_tokens: 300, messages: [{ role: 'user', content: prompt }] }),
-    });
-    if (!res.ok) return null;
-    const body = (await res.json()) as { content?: Array<{ type: string; text?: string }> };
-    const text = body.content?.find((c) => c.type === 'text')?.text ?? '';
-    const json = text.match(/\{[\s\S]*\}/)?.[0];
-    if (!json) return null;
-    const parsed = Out.safeParse(safeJson(json));
+    const raw = await askClaudeJson({ apiKey: this.apiKey, model: this.model, prompt, maxTokens: 300, fetch: this.f });
+    const parsed = Out.safeParse(raw);
     if (!parsed.success) return null;
     // Drop any id the model made up.
     const valid = new Set(list.map((l) => l.id));
     const order = parsed.data.order.filter((id) => valid.has(id));
     return order.length ? { order, reason: parsed.data.reason } : null;
-  }
-}
-
-function safeJson(s: string): unknown {
-  try {
-    return JSON.parse(s);
-  } catch {
-    return null;
   }
 }

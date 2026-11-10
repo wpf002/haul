@@ -8,6 +8,6 @@
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run --passWithNoTests"
   },
-  "dependencies": { "@haul/core": "workspace:*", "@haul/units": "workspace:*", "node-html-parser": "^7.0.0" },
+  "dependencies": { "@haul/core": "workspace:*", "@haul/units": "workspace:*", "node-html-parser": "^7.0.0", "zod": "^3.24.0" },
   "devDependencies": {}
 }

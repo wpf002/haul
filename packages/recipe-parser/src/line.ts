@@ -10,7 +10,7 @@ const SIZE_WORDS = new Set(['large', 'small', 'medium', 'extra-large', 'jumbo', 
 // Prep words stripped from the *front* of the name. Deliberately excludes words that
 // are part of real product names: crushed, ground, shredded, grated, smoked, dried.
 const LEADING_PREP = [
-  'freshly ground', 'finely chopped', 'roughly chopped', 'coarsely chopped', 'thinly sliced',
+  'freshly ground', 'freshly grated', 'grated fresh', 'finely chopped', 'roughly chopped', 'coarsely chopped', 'thinly sliced',
   'finely diced', 'finely minced', 'chopped', 'diced', 'minced', 'sliced', 'cubed', 'julienned',
   'softened', 'melted', 'cold', 'warm', 'packed', 'lightly packed', 'firmly packed', 'peeled',
   'trimmed', 'rinsed', 'drained', 'fresh', 'freshly', 'room temperature',
