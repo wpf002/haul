@@ -1,0 +1,14 @@
+{
+  "recipe": "weeknight-chili.txt",
+  "locationId": "01400943",
+  "expect": {
+    "ground beef": { "accept": ["ground beef"], "reject": ["seasoned", "taco", "family pack"], "packs": 1 },
+    "onion": { "accept": ["onion"], "reject": ["dip", "powder", "soup"] },
+    "garlic": { "accept": ["^garlic$", "garlic bulb", "whole garlic"], "reject": ["powder", "salt"] },
+    "crushed tomatoes": { "accept": ["crushed tomatoes"], "reject": ["fire roasted", "sauce"], "packs": 1 },
+    "kidney beans": { "accept": ["kidney beans"], "packs": 2 },
+    "chili powder": { "accept": ["chili powder"], "reject": ["mix", "seasoning"] },
+    "ground cumin": { "accept": ["cumin"] }
+  },
+  "absent": ["salt", "olive oil", "shredded cheddar cheese"]
+}

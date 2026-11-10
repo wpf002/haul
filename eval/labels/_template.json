@@ -1,0 +1,14 @@
+{
+  "recipe": "file-in-eval-recipes.txt",
+  "locationId": "KROGER_STORE_ID",
+  "servings": 4,
+  "have": ["things the shopper said they have"],
+  "expect": {
+    "ingredient key as the resolver emits it": {
+      "accept": ["regex a good product description matches"],
+      "reject": ["regex for near-misses: sauce, mix, seasoned, frozen"],
+      "packs": 1
+    }
+  },
+  "absent": ["keys that should be filtered out: pantry staples, optional garnish"]
+}

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.next/
+.turbo/
+coverage/
+.env
+.env.*
+!.env.example
+eval/runs/*
+!eval/runs/.gitkeep
+*.log
+.DS_Store
+*.tsbuildinfo

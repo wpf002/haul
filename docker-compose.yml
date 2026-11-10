@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: haul
+      POSTGRES_PASSWORD: haul
+      POSTGRES_DB: haul
+    ports: ["5432:5432"]
+    volumes: [haul-db:/var/lib/postgresql/data]
+volumes:
+  haul-db:

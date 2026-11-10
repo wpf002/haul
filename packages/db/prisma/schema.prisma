@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Retailer {
+  kroger
+  instacart
+}
+
+enum Modality {
+  PICKUP
+  DELIVERY
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String?  @unique
+  createdAt DateTime @default(now())
+
+  sessions   Session[]
+  pantry     Pantry?
+  links      RetailerLink[]
+  drafts     BasketDraft[]
+  cartEvents CartEvent[]
+  oauth      OAuthState[]
+}
+
+model Session {
+  /// 32 random bytes, base64url. Only a SHA-256 hash is stored.
+  idHash    String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([userId])
+}
+
+/// User-entered preferences only. No purchase or cart history lives here.
+model Pantry {
+  userId            String   @id
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  staples           String[]
+  dislikes          String[]
+  preferStoreBrand  Boolean  @default(false)
+  preferOrganic     Boolean  @default(false)
+  brandPrefs        Json     @default("{}")
+  krogerLocationId  String?
+  modality          Modality @default(PICKUP)
+  updatedAt         DateTime @updatedAt
+}
+
+/// OAuth tokens, AES-256-GCM encrypted at rest. Revocable from the settings page.
+model RetailerLink {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  retailer        Retailer
+  accessTokenEnc  String
+  refreshTokenEnc String?
+  expiresAt       DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([userId, retailer])
+}
+
+/// Short-lived PKCE state for the OAuth round trip.
+model OAuthState {
+  state       String   @id
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  verifierEnc String
+  returnTo    String?
+  expiresAt   DateTime
+}
+
+/// The proposed basket shown on the review screen. Contains retailer product data,
+/// so it's deleted right after the cart write and swept after 24h either way.
+model BasketDraft {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  retailer   Retailer
+  locationId String?
+  title      String
+  payload    Json
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+
+  @@index([expiresAt])
+}
+
+/// Consent audit: who confirmed how many lines, when. No product data.
+model CartEvent {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  retailer  Retailer
+  lineCount Int
+  createdAt DateTime @default(now())
+}
