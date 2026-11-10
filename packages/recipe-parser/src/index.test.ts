@@ -69,6 +69,8 @@ For the garnish:
     expect(r.ingredients.map((i) => i.name)).toEqual(['chicken breast', 'heavy cream', 'sun-dried tomatoes', 'basil']);
     expect(r.ingredients[3]?.section).toBe('garnish');
     expect(r.ingredients[3]?.optional).toBe(true);
+    // Bullets are list markup, not part of the ingredient the user sees.
+    expect(r.ingredients[0]?.raw).toBe('1.5 lb chicken breast');
   });
 });
 

@@ -47,4 +47,10 @@ describe('near misses', () => {
     const [line] = await resolveBasket(needs, new FixtureCatalog(DEMO_CATALOG), { locationId: 'demo', pantry: DEFAULT_PANTRY });
     expect(line?.pick?.description).toMatch(/Butter Sticks/);
   });
+
+  it('picks an onion, not green onions', async () => {
+    const { needs } = buildNeeds([{ recipe: parseRecipeText('Ingredients\n- 1 large onion, diced') }], DEFAULT_PANTRY);
+    const [line] = await resolveBasket(needs, new FixtureCatalog(DEMO_CATALOG), { locationId: 'demo', pantry: DEFAULT_PANTRY });
+    expect(line?.pick?.description).toMatch(/Yellow Onion/);
+  });
 });

@@ -16,6 +16,8 @@ const IDENTITY_SHIFTERS = [
   'cereal', 'cookie', 'cookies', 'cake', 'pie', 'roasted', 'pickled', 'instant', 'lite', 'light',
   // "butter" vs "peanut butter", "milk" vs "almond milk"
   'peanut', 'almond', 'cashew', 'coconut', 'oat', 'soy',
+  // "onion" vs "green onions", "beans" vs "green beans"
+  'green',
 ];
 const STORE_BRANDS = ['kroger', 'simple truth', 'simple truth organic', 'private selection', 'home chef', 'heritage farm'];
 

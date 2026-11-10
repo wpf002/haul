@@ -5,6 +5,8 @@ const INGREDIENT_HEADER = /^ingredients?\s*:?$/i;
 const STOP_HEADER = /^(?:instructions|directions|method|steps|preparation|how to make|notes|nutrition)\s*:?$/i;
 const SECTION_HEADER = /^(?:for the\s+)?([a-z][a-z \-&']{1,40}?)\s*:$/i;
 /** Strip markdown emphasis/heading marks so "**Ingredients:**" and "## Method" match. */
+/** List markers a pasted list starts lines with. Kept out of `raw` so the UI shows the ingredient only. */
+const BULLET = /^[\-*•·▢]\s+/;
 const bare = (l: string) => l.replace(/^#+\s*/, '').replace(/[*_]+/g, '').trim();
 
 /**
@@ -35,7 +37,7 @@ export function parseRecipeText(text: string): ParsedRecipe {
     if (/^\d+[.)]\s+[A-Z]/.test(line) && start < 0) continue;
     const looksLikeIngredient = /^[\-*•·▢]|^\d|^[½⅓⅔¼¾⅛]|^(?:a|an)\s/i.test(line) || start >= 0;
     if (!looksLikeIngredient) continue;
-    ingredients.push(parseIngredientLine(line, section));
+    ingredients.push(parseIngredientLine(line.replace(BULLET, ''), section));
     seenIngredient = true;
   }
 

@@ -3,7 +3,7 @@
   "locationId": "01400943",
   "expect": {
     "ground beef": { "accept": ["ground beef"], "reject": ["seasoned", "taco", "family pack"], "packs": 1 },
-    "onion": { "accept": ["onion"], "reject": ["dip", "powder", "soup"] },
+    "onion": { "accept": ["onion"], "reject": ["dip", "powder", "soup", "green"] },
     "garlic": { "accept": ["^garlic$", "garlic bulb", "whole garlic"], "reject": ["powder", "salt"] },
     "crushed tomatoes": { "accept": ["crushed tomatoes"], "reject": ["fire roasted", "sauce"], "packs": 1 },
     "kidney beans": { "accept": ["kidney beans"], "packs": 2 },

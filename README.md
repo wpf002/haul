@@ -8,11 +8,28 @@ Paste a recipe. Haul works out what you actually need to buy, finds it at your s
 
 Haul never checks out, never touches payment, and never adds anything the shopper didn't see and confirm.
 
+## Try It (No Keys, No Database)
+
+```bash
+corepack enable && pnpm install
+pnpm demo                         # api :4000 (in-memory), web :3000
+```
+
+Open http://localhost:3000. Demo mode uses a sample catalog and sample stores. Nothing reaches Kroger or Instacart, and the header shows a Demo flag. The API refuses `DEMO_MODE=true` when `NODE_ENV=production`.
+
+## Screens
+
+- **Cart**: add up to 5 recipes (link or pasted list), set servings, mark what you have, pick Kroger or Instacart and a store. The review groups lines by aisle and shows each line's match confidence, pack math (`Need 1 cup → Buying 1 × 32 oz`), a pack stepper and swaps. Lines that need a look start flagged, and an ambiguous pick stays unchecked until you choose. The cart bar shows the item count, total and price per serving, plus Pickup or Delivery.
+- **Pantry**: staples to skip, ingredients you never buy, store-brand and organic preferences, the default store, and Kroger connect or disconnect.
+
+Recipes in progress and the chosen store are kept in the browser. A review waiting on Kroger sign-in survives the OAuth round trip.
+
 ## How It Works
 
 ```
 recipe URL / pasted text
-  └─ recipe-parser   JSON-LD → microdata → text. Quantity, unit, name, notes, optional, sections.
+  └─ recipe-parser   JSON-LD → microdata → "Ingredients" heading in page text → LLM extract
+                     (only with ANTHROPIC_API_KEY). Quantity, unit, name, notes, optional, sections.
       └─ resolver/needs   pantry staples, "I have this", optional garnish, scaling, merge across recipes
           └─ retailers    Kroger product search at the chosen store
               └─ resolver/score   deterministic ranking: name match, identity-shift penalty,
@@ -49,6 +66,8 @@ pnpm db:generate && pnpm db:migrate
 pnpm dev                          # api :4000, web :3000
 ```
 
+`ANTHROPIC_API_KEY` is optional. It turns on the LLM recipe extractor for pages with no structured data and the rerank of close calls.
+
 Kroger app: register at developer.kroger.com, enable Product and Cart, set the redirect URI to `KROGER_REDIRECT_URI`.
 Instacart: create a development key in the Instacart Developer Platform dashboard.
 
@@ -57,7 +76,7 @@ Instacart: create a development key in the Instacart Developer Platform dashboar
 ```bash
 pnpm typecheck
 pnpm test
-pnpm eval                 # offline, sample catalog
+pnpm eval                 # offline, sample catalog, 5 labeled recipes
 pnpm eval -- --live       # real Kroger search, responses cached in eval/runs/ (gitignored)
 pnpm eval -- --live --rerank
 ```
@@ -82,14 +101,15 @@ Two services from this repo plus a Postgres plugin.
 
 Set `NODE_ENV=production` (turns on secure cookies), and point `WEB_ORIGIN`, `API_PUBLIC_URL`, `KROGER_REDIRECT_URI` at the real domains. Put web and api on the same parent domain so the session cookie stays first-party.
 
-## Status
+## Status (v1.0)
 
 | Piece | State |
 |---|---|
 | Parser, units, needs, scorer | Built, tested |
+| Recipe import fallback (page text, LLM) | Built. LLM step needs `ANTHROPIC_API_KEY` |
 | Kroger OAuth, search, cart | Built, tested against mocked responses. Needs a live run with your developer app |
 | Instacart handoff | Built, tested against mocked responses. Needs a dev key |
-| Review UI | Built, single page |
-| Pantry settings UI | API done, screen not built |
-| LLM fallback for pages with no structured recipe | Not built. Returns 422 and asks for pasted text |
-| Eval set | 1 labeled recipe. Needs 50 |
+| Cart and review UI | Built: multi-recipe, aisles, swaps, pack math, totals, light and dark, mobile |
+| Pantry UI | Built |
+| Demo mode | Built. `pnpm demo` |
+| Eval set | 5 labeled recipes, 47/47 lines offline. Target is 50 recipes on a live store |
