@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { z } from 'zod';
 import { api, ApiError, type Config, Excluded, type Modality, type Pantry, type Retailer, Store } from './api';
 import { priceOf } from './format';
+import { sharedRecipeSource } from './share';
 import { readStored, STORE_KEY, writeStored } from './storage';
 
 export const MAX_RECIPES = 5;
@@ -80,6 +81,15 @@ export function useCart() {
       setPantry(p);
       setModality(p.modality);
     }, reportLoadError);
+  }, []);
+
+  // The installed app is a share target: a recipe shared from another app arrives as /?url=…&text=….
+  useEffect(() => {
+    const source = sharedRecipeSource(new URLSearchParams(window.location.search));
+    if (!source) return;
+    // Clear the query first so a reload or a second effect run doesn't import it twice.
+    window.history.replaceState(null, '', window.location.pathname);
+    void addRecipe(source);
   }, []);
 
   useEffect(() => {

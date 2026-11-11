@@ -22,6 +22,8 @@ Open http://localhost:3000. Demo mode uses a sample catalog and sample stores. N
 - **Cart**: add up to 5 recipes (link or pasted list), set servings, mark what you have, pick Kroger or Instacart and a store. The review groups lines by aisle and shows each line's match confidence, pack math (`Need 1 cup → Buying 1 × 32 oz`), a pack stepper and swaps. Lines that need a look start flagged, and an ambiguous pick stays unchecked until you choose. The cart bar shows the item count, total and price per serving, plus Pickup or Delivery.
 - **Pantry**: staples to skip, ingredients you never buy, store-brand and organic preferences, the default store, and Kroger connect or disconnect.
 
+Haul installs as an app (web manifest, icons). On Android the installed app shows up in the share sheet: share a recipe link or a copied ingredient list and it lands in the cart.
+
 Recipes in progress and the chosen store are kept in the browser. A review waiting on Kroger sign-in survives the OAuth round trip.
 
 ## How It Works
@@ -112,4 +114,5 @@ Set `NODE_ENV=production` (turns on secure cookies), and point `WEB_ORIGIN`, `AP
 | Cart and review UI | Built: multi-recipe, aisles, swaps, pack math, totals, light and dark, mobile |
 | Pantry UI | Built |
 | Demo mode | Built. `pnpm demo` |
+| Installable app, Android share target | Built. iOS share sheet needs a native share extension |
 | Eval set | 5 labeled recipes, 47/47 lines offline. Target is 50 recipes on a live store |
