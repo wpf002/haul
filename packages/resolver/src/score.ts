@@ -88,10 +88,7 @@ export function scoreCandidate(need: ShoppingNeed, product: RetailProduct, pantr
     sizeScore = size ? 0.8 : 0.6;
   }
 
-  // 4. Stock.
-  const stockPenalty = product.inStock === false ? 0.5 : 0;
-
-  // 5. Preferences.
+  // 4. Preferences.
   const brand = (product.brand ?? '').toLowerCase();
   let prefBonus = 0;
   const wanted = pantry.brandPrefs[need.key]?.toLowerCase();
@@ -99,17 +96,17 @@ export function scoreCandidate(need: ShoppingNeed, product: RetailProduct, pantr
   if (pantry.preferStoreBrand && STORE_BRANDS.some((b) => brand.includes(b))) prefBonus += 0.05;
   if (pantry.preferOrganic && prodTokens.has('organic')) prefBonus += 0.05;
 
-  // 6. Price, tie-breaker only.
+  // 5. Price, tie-breaker only. Out-of-stock products never reach scoring; resolveOne drops them.
   const unitPrice = unitPriceOf(product, plan.packs);
   const priceBonus = cheapestUnitPrice && unitPrice ? 0.05 * (cheapestUnitPrice / unitPrice) : 0;
 
-  const score = 0.55 * nameScore + 0.3 * sizeScore + phraseBonus + prefBonus + priceBonus - shiftPenalty - stockPenalty;
+  const score = 0.55 * nameScore + 0.3 * sizeScore + phraseBonus + prefBonus + priceBonus - shiftPenalty;
   return {
     product,
     score: Math.round(score * 1000) / 1000,
     packs: plan.packs,
     estimated: plan.estimated,
-    parts: { nameScore, sizeScore, phraseBonus, shiftPenalty, stockPenalty, prefBonus, priceBonus },
+    parts: { nameScore, sizeScore, phraseBonus, shiftPenalty, prefBonus, priceBonus },
     note: plan.note,
   };
 }
@@ -138,7 +135,8 @@ export function confidenceOf(need: ShoppingNeed, ranked: Scored[]): Confidence {
   // item (full name match, no identity shift) are interchangeable and score within a few points of the top.
   const rival = ranked.slice(1).find((r) => !isSameItem(r));
   const margin = top.score - (rival?.score ?? 0);
-  if (top.score >= 0.75 && margin >= 0.05 && !top.estimated && isSameItem(top)) return 'high';
+  // Low stock may be gone by pickup, so the shopper should see it.
+  if (top.score >= 0.75 && margin >= 0.05 && !top.estimated && isSameItem(top) && top.product.stock !== 'low') return 'high';
   return 'check';
 }
 
@@ -150,7 +148,7 @@ export function explain(need: ShoppingNeed, s: Scored): string {
   if (s.note) bits.push(s.note);
   if (s.parts.prefBonus! > 0) bits.push('matches your preferences');
   if (s.parts.shiftPenalty! > 0) bits.push('name differs from recipe, check it');
-  if (s.product.inStock === false) bits.push('out of stock at this store');
+  if (s.product.stock === 'low') bits.push('low stock at this store');
   if (need.flags.includes('allergen-sensitive')) bits.push('allergen: read the label');
   if (need.flags.includes('alcohol')) bits.push('alcohol may not be addable for pickup');
   return bits.join('; ');

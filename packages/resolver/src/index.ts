@@ -1,7 +1,7 @@
 import type { BasketLine, PantryProfile, ShoppingNeed } from '@haul/core';
 import type { CatalogAdapter } from '@haul/retailers';
 import type { Reranker } from './rerank';
-import { rankCandidates, type Scored, toBasketLine } from './score';
+import { rankCandidates, type Scored, toBasketLine, unresolvedLine } from './score';
 
 export * from './needs';
 export * from './score';
@@ -30,18 +30,27 @@ export function fallbackTerms(term: string): string[] {
   return words.map((_, i) => words.slice(i).join(' '));
 }
 
-/** Catalog search that retries with a shorter term when the full one finds nothing. */
+export const OUT_OF_STOCK_REASON = 'out of stock at this store';
+
+/**
+ * Catalog search that retries with a shorter term only when the full one finds nothing.
+ * A term that finds the item out of stock stops the search: "tahini sauce" out of stock
+ * must not fall through to "sauce". Out-of-stock products are dropped from the result.
+ */
 async function searchWithFallback(need: ShoppingNeed, catalog: CatalogAdapter, opts: ResolveOptions) {
   const query = { locationId: opts.locationId, limit: opts.candidatesPerNeed ?? 12 };
   for (const term of fallbackTerms(searchTerm(need))) {
     const products = await catalog.search(term, query);
-    if (products.length) return products;
+    if (!products.length) continue;
+    const available = products.filter((p) => p.stock !== 'out');
+    return { products: available, allOut: !available.length };
   }
-  return [];
+  return { products: [], allOut: false };
 }
 
 async function resolveOne(need: ShoppingNeed, catalog: CatalogAdapter, opts: ResolveOptions): Promise<BasketLine> {
-  const products = await searchWithFallback(need, catalog, opts);
+  const { products, allOut } = await searchWithFallback(need, catalog, opts);
+  if (allOut) return unresolvedLine(need, OUT_OF_STOCK_REASON);
   let ranked: Scored[] = rankCandidates(need, products, opts.pantry);
   let line = toBasketLine(need, ranked);
 

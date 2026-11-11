@@ -37,6 +37,10 @@ export const ShoppingNeed = z.object({
 });
 export type ShoppingNeed = z.infer<typeof ShoppingNeed>;
 
+/** Store stock for one product. Null when the retailer didn't say. */
+export const StockLevel = z.enum(['in', 'low', 'out']);
+export type StockLevel = z.infer<typeof StockLevel>;
+
 /** Layer 3: a specific retail product. */
 export const RetailProduct = z.object({
   retailer: z.enum(['kroger', 'instacart']),
@@ -48,7 +52,7 @@ export const RetailProduct = z.object({
   sizeText: z.string().nullable(),
   priceCents: z.number().int().nonnegative().nullable(),
   promoPriceCents: z.number().int().nonnegative().nullable(),
-  inStock: z.boolean().nullable(),
+  stock: StockLevel.nullable(),
   categories: z.array(z.string()),
   imageUrl: z.string().nullable(),
 });

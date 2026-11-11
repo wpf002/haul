@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
-import type { RetailProduct } from '@haul/core';
+import { RetailProduct } from '@haul/core';
 import type { CatalogAdapter, SearchOptions } from './types';
 
 const tokens = (s: string) => new Set(s.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length > 1));
@@ -39,7 +39,7 @@ export class RecordingCatalog implements CatalogAdapter {
     private readonly file: string,
   ) {
     this.id = inner?.id ?? 'kroger';
-    this.cache = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : {};
+    this.cache = existsSync(file) ? validEntries(JSON.parse(readFileSync(file, 'utf8')) as Record<string, unknown>) : {};
   }
   async search(term: string, opts: SearchOptions): Promise<RetailProduct[]> {
     const key = `${opts.locationId}::${term.toLowerCase()}`;
@@ -51,4 +51,15 @@ export class RecordingCatalog implements CatalogAdapter {
     writeFileSync(this.file, JSON.stringify(this.cache));
     return res;
   }
+}
+
+/** Keeps only cache entries that match the current product shape; the rest are searched again. */
+function validEntries(raw: Record<string, unknown>): Record<string, RetailProduct[]> {
+  const products = RetailProduct.array();
+  const out: Record<string, RetailProduct[]> = {};
+  for (const [key, value] of Object.entries(raw)) {
+    const parsed = products.safeParse(value);
+    if (parsed.success) out[key] = parsed.data;
+  }
+  return out;
 }

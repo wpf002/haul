@@ -4,7 +4,7 @@ import { FixtureCatalog } from '@haul/retailers';
 import { describe, expect, it } from 'vitest';
 import { SAMPLE_CATALOG } from './fixtures';
 import type { RetailProduct } from '@haul/core';
-import { buildNeeds, fallbackTerms, ingredientKey, resolveBasket } from './index';
+import { buildNeeds, fallbackTerms, ingredientKey, OUT_OF_STOCK_REASON, resolveBasket } from './index';
 
 const CHILI = `Ingredients
 - 1 lb ground beef
@@ -74,7 +74,7 @@ describe('resolver', () => {
     expect(fallbackTerms('dried brown lentils')).toEqual(['dried brown lentils', 'brown lentils', 'lentils']);
     const lentils: RetailProduct = {
       retailer: 'kroger', productId: 'lentils', upc: null, description: 'Kroger® Lentils', brand: null, sizeText: '16 oz',
-      priceCents: 150, promoPriceCents: null, inStock: true, categories: [], imageUrl: null,
+      priceCents: 150, promoPriceCents: null, stock: 'in', categories: [], imageUrl: null,
     };
     const searched: string[] = [];
     const catalog = new FixtureCatalog([]);
@@ -83,6 +83,33 @@ describe('resolver', () => {
     const [line] = await resolveBasket(buildNeeds([{ recipe }], DEFAULT_PANTRY).needs, catalog, { locationId: 'test', pantry: DEFAULT_PANTRY });
     expect(searched).toEqual(['dried brown lentils', 'brown lentils', 'lentils']);
     expect(line?.pick?.productId).toBe('lentils');
+  });
+
+  describe('stock', () => {
+    const product = (productId: string, stock: RetailProduct['stock']): RetailProduct => ({
+      retailer: 'kroger', productId, upc: null, description: 'Kroger® Brown Lentils', brand: null, sizeText: '16 oz',
+      priceCents: 150, promoPriceCents: null, stock, categories: [], imageUrl: null,
+    });
+    const resolveLentils = async (results: Record<string, RetailProduct[]>) => {
+      const catalog = new FixtureCatalog([]);
+      catalog.search = async (term) => results[term] ?? [];
+      const recipe = parseRecipeText('Ingredients\n- 1 cup brown lentils\n');
+      const [line] = await resolveBasket(buildNeeds([{ recipe }], DEFAULT_PANTRY).needs, catalog, { locationId: 'test', pantry: DEFAULT_PANTRY });
+      return line;
+    };
+
+    it('never picks or offers an out-of-stock product', async () => {
+      const line = await resolveLentils({ 'brown lentils': [product('out', 'out'), product('in', 'in')] });
+      expect(line?.pick?.productId).toBe('in');
+      expect(line?.alternates.map((p) => p.productId)).not.toContain('out');
+    });
+
+    // Regression: "tahini sauce" was out of stock, the fallback searched "sauce" and picked Worcestershire.
+    it('leaves the line unpicked when every result is out, without trying a shorter term', async () => {
+      const line = await resolveLentils({ 'brown lentils': [product('out', 'out')], lentils: [product('in', 'in')] });
+      expect(line?.pick).toBeNull();
+      expect(line?.reason).toBe(OUT_OF_STOCK_REASON);
+    });
   });
 
   it('builds a sensible chili basket', async () => {

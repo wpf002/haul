@@ -1,5 +1,5 @@
 import { createHash, randomBytes } from 'node:crypto';
-import type { RetailProduct } from '@haul/core';
+import type { RetailProduct, StockLevel } from '@haul/core';
 import { z } from 'zod';
 import { type CartAdapter, type CartLine, type CatalogAdapter, RetailerError, type SearchOptions } from './types';
 
@@ -58,6 +58,8 @@ const Location = z.object({
 const LocationsResponse = z.object({ data: z.array(Location) });
 export type KrogerLocation = z.infer<typeof Location>;
 
+const KROGER_STOCK: Record<string, StockLevel> = { HIGH: 'in', LOW: 'low', TEMPORARILY_OUT_OF_STOCK: 'out' };
+
 const toCents = (n: number | undefined) => (typeof n === 'number' && n > 0 ? Math.round(n * 100) : null);
 
 export function mapKrogerProduct(p: z.infer<typeof KrogerProduct>): RetailProduct {
@@ -74,7 +76,7 @@ export function mapKrogerProduct(p: z.infer<typeof KrogerProduct>): RetailProduc
     sizeText: item?.size ?? null,
     priceCents: toCents(item?.price?.regular),
     promoPriceCents: toCents(item?.price?.promo),
-    inStock: stock ? stock !== 'TEMPORARILY_OUT_OF_STOCK' : null,
+    stock: stock ? (KROGER_STOCK[stock] ?? null) : null,
     categories: p.categories ?? [],
     imageUrl: img?.url ?? null,
   };

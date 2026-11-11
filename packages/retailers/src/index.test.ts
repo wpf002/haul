@@ -13,7 +13,17 @@ describe('kroger', () => {
       images: [{ perspective: 'front', sizes: [{ size: 'medium', url: 'https://img/x.jpg' }] }],
       items: [{ size: '28 oz', price: { regular: 1.79, promo: 0 }, inventory: { stockLevel: 'HIGH' } }],
     });
-    expect(p).toMatchObject({ priceCents: 179, promoPriceCents: null, inStock: true, sizeText: '28 oz', imageUrl: 'https://img/x.jpg' });
+    expect(p).toMatchObject({ priceCents: 179, promoPriceCents: null, stock: 'in', sizeText: '28 oz', imageUrl: 'https://img/x.jpg' });
+  });
+
+  it.each([
+    ['HIGH', 'in'],
+    ['LOW', 'low'],
+    ['TEMPORARILY_OUT_OF_STOCK', 'out'],
+    [undefined, null],
+  ])('maps stock level %s to %s', (stockLevel, stock) => {
+    const p = mapKrogerProduct({ productId: '1', description: 'x', items: [{ inventory: { stockLevel } }] });
+    expect(p.stock).toBe(stock);
   });
 
   it('builds a PKCE authorize URL with cart scope', () => {

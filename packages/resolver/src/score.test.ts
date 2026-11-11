@@ -12,7 +12,7 @@ const product = (productId: string, description: string, sizeText: string): Reta
   sizeText,
   priceCents: 100,
   promoPriceCents: null,
-  inStock: true,
+  stock: 'in',
   categories: [],
   imageUrl: null,
 });
@@ -81,10 +81,17 @@ describe('confidenceOf', () => {
       score,
       packs: 1,
       estimated: false,
-      parts: { nameScore, sizeScore: 1, shiftPenalty, stockPenalty: 0, prefBonus: 0, priceBonus: 0 },
+      parts: { nameScore, sizeScore: 1, shiftPenalty, prefBonus: 0, priceBonus: 0 },
       note: null,
     });
     expect(confidenceOf(penne, [scored('penne', 0.9, 1, 0), scored('penne kit', 0.88, 1, 0.18)])).toBe('check');
+  });
+
+  // Low stock may sell out before pickup, so the shopper should look at it.
+  it('never rates a low-stock pick high', () => {
+    const products = [product('kroger', 'Kroger® Penne Rigate Pasta', '16 oz'), product('barilla', 'Barilla® Penne Rigate Pasta', '16 oz')];
+    const ranked = rankCandidates(penne, products.map((p) => ({ ...p, stock: 'low' as const })), DEFAULT_PANTRY);
+    expect(confidenceOf(penne, ranked)).toBe('check');
   });
 
   it('ranks real vanilla extract above imitation', () => {

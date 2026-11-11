@@ -141,7 +141,7 @@ const extras = ROWS.trim()
   .split('\n')
   .map((row) => {
     const [id, description, brand, size, price, category] = row.split('|');
-    return fixtureProduct(id!, description!, brand!, size!, Number(price), true, category!);
+    return fixtureProduct(id!, description!, brand!, size!, Number(price), 'in', category!);
   });
 
 export const DEMO_CATALOG: RetailProduct[] = [

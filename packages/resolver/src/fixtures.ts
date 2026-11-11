@@ -1,6 +1,6 @@
-import type { RetailProduct } from '@haul/core';
+import type { RetailProduct, StockLevel } from '@haul/core';
 
-const p = (productId: string, description: string, brand: string, sizeText: string, price: number, inStock = true, category = ''): RetailProduct => ({
+const p = (productId: string, description: string, brand: string, sizeText: string, price: number, stock: StockLevel = 'in', category = ''): RetailProduct => ({
   retailer: 'kroger',
   productId,
   upc: productId.padStart(13, '0'),
@@ -9,7 +9,7 @@ const p = (productId: string, description: string, brand: string, sizeText: stri
   sizeText,
   priceCents: Math.round(price * 100),
   promoPriceCents: null,
-  inStock,
+  stock,
   categories: category ? [category] : [],
   imageUrl: null,
 });
@@ -40,6 +40,6 @@ export const SAMPLE_CATALOG: RetailProduct[] = [
   p('52', 'Garlic Powder', 'Kroger', '3 oz', 2.49),
   p('60', 'Kroger Shredded Sharp Cheddar Cheese', 'Kroger', '8 oz', 2.79),
   p('61', 'Kroger Sharp Cheddar Cheese Block', 'Kroger', '8 oz', 2.79),
-  p('70', 'Kroger Ground Cumin', 'Kroger', '1.75 oz', 2.49, false),
+  p('70', 'Kroger Ground Cumin', 'Kroger', '1.75 oz', 2.49, 'out'),
   p('71', 'McCormick Ground Cumin', 'McCormick', '1.5 oz', 4.99),
 ];
