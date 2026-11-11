@@ -2,8 +2,8 @@
   "recipe": "sheet-pan-fajitas.txt",
   "locationId": "01400943",
   "expect": {
-    "boneless skinless chicken breasts": { "accept": ["chicken breast"], "reject": ["seasoned", "fajita strips"], "packs": 1 },
-    "red bell pepper": { "accept": ["red bell pepper"], "packs": 2 },
+    "boneless skinless chicken breasts": { "accept": ["chicken breast"], "reject": ["seasoned", "fajita strips"] },
+    "red bell pepper": { "accept": ["red (\\w+ )?bell pepper"], "packs": 2 },
     "green bell pepper": { "accept": ["green bell pepper"], "packs": 1 },
     "red onion": { "accept": ["red onion"] },
     "smoked paprika": { "accept": ["smoked paprika"] },

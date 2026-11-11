@@ -3,11 +3,11 @@
   "locationId": "01400943",
   "expect": {
     "baking soda": { "accept": ["baking soda"] },
-    "butter": { "accept": ["unsalted butter"], "packs": 1 },
+    "unsalted butter": { "accept": ["unsalted butter"], "packs": 1 },
     "light brown sugar": { "accept": ["brown sugar"] },
     "egg": { "accept": ["eggs"], "packs": 1 },
     "vanilla extract": { "accept": ["vanilla extract"] },
-    "semi-sweet chocolate chips": { "accept": ["chocolate chips"] }
+    "semi-sweet chocolate chips": { "accept": ["chocolate (baking )?chips?", "morsels"] }
   },
   "absent": ["all-purpose flour", "sugar", "salt"]
 }

@@ -10,7 +10,6 @@ const SYNONYMS: Record<string, string> = {
   'all purpose flour': 'all-purpose flour', flour: 'all-purpose flour',
   'granulated sugar': 'sugar', 'white sugar': 'sugar',
   'extra virgin olive oil': 'olive oil', 'extra-virgin olive oil': 'olive oil',
-  'unsalted butter': 'butter', 'salted butter': 'butter',
   eggs: 'egg', 'large eggs': 'egg',
   'ground black pepper': 'black pepper', pepper: 'black pepper',
   'kosher salt': 'salt', 'sea salt': 'salt', 'table salt': 'salt',

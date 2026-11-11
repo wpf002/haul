@@ -3,7 +3,13 @@ import { formatBase, parseRetailSize, planPacks } from '@haul/units';
 import { aisleOf } from './aisle';
 
 const tok = (s: string) => s.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length > 1);
-const stem = (t: string) => t.replace(/(ies)$/, 'y').replace(/(es|s)$/, '');
+/** Plural to singular. Only "-ches/-shes/-xes/-oes/-sses" drop "es"; "limes" must stay "lime", not "lim". */
+export const stem = (t: string) => {
+  if (/ies$/.test(t)) return t.replace(/ies$/, 'y');
+  if (/(ch|sh|x|o|ss)es$/.test(t)) return t.slice(0, -2);
+  if (/[^s]s$/.test(t)) return t.slice(0, -1);
+  return t;
+};
 
 /**
  * Words that turn one product into a different one. If the product has it and the
@@ -11,7 +17,7 @@ const stem = (t: string) => t.replace(/(ies)$/, 'y').replace(/(es|s)$/, '');
  */
 const IDENTITY_SHIFTERS = [
   'sauce', 'soup', 'mix', 'kit', 'seasoned', 'seasoning', 'flavored', 'chips', 'crackers', 'candy',
-  'dressing', 'marinade', 'frozen', 'dried', 'powder', 'paste', 'juice', 'snack', 'bar', 'bars',
+  'dressing', 'marinade', 'soda', 'frozen', 'dried', 'powder', 'paste', 'juice', 'snack', 'bar', 'bars',
   'cooked', 'canned', 'smoked', 'breaded', 'spread', 'dip', 'drink', 'baby', 'pet', 'dog', 'cat',
   'cereal', 'cookie', 'cookies', 'cake', 'pie', 'roasted', 'pickled', 'instant', 'lite', 'light',
   // "butter" vs "peanut butter", "milk" vs "almond milk"
