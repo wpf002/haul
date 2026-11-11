@@ -1,0 +1,114 @@
+{
+  "url": "https://www.budgetbytes.com/one-pot-creamy-cajun-chicken-pasta/",
+  "locationId": "01400943",
+  "expect": {
+    "smoked paprika": {
+      "accept": [
+        "smoked paprika"
+      ]
+    },
+    "1 tsp oregano": {
+      "accept": [
+        "oregano"
+      ],
+      "reject": [
+        "oil"
+      ]
+    },
+    "1 tsp thyme": {
+      "accept": [
+        "thyme"
+      ]
+    },
+    "garlic powder": {
+      "accept": [
+        "garlic powder"
+      ],
+      "reject": [
+        "salt"
+      ]
+    },
+    "onion powder": {
+      "accept": [
+        "onion powder"
+      ]
+    },
+    "cayenne": {
+      "accept": [
+        "cayenne"
+      ],
+      "reject": [
+        "sauce"
+      ]
+    },
+    "1 Tbsp butter": {
+      "accept": [
+        "butter"
+      ],
+      "reject": [
+        "peanut",
+        "almond",
+        "apple"
+      ]
+    },
+    "chicken breast": {
+      "accept": [
+        "chicken breast"
+      ],
+      "reject": [
+        "breaded",
+        "nugget",
+        "tender"
+      ]
+    },
+    "yellow onion": {
+      "accept": [
+        "onion"
+      ],
+      "reject": [
+        "green",
+        "powder",
+        "ring",
+        "soup",
+        "dip"
+      ]
+    },
+    "penne": {
+      "accept": [
+        "penne"
+      ]
+    },
+    "fire roasted diced tomatoes": {
+      "accept": [
+        "fire.roasted.*tomato"
+      ]
+    },
+    "chicken broth": {
+      "accept": [
+        "chicken (broth|stock)"
+      ]
+    },
+    "cream cheese": {
+      "accept": [
+        "cream cheese"
+      ],
+      "reject": [
+        "frosting",
+        "strawberry",
+        "chive",
+        "onion"
+      ]
+    },
+    "green onions": {
+      "accept": [
+        "green onion",
+        "scallion"
+      ]
+    }
+  },
+  "absent": [
+    "black pepper",
+    "1/4 tsp salt",
+    "olive oil"
+  ]
+}

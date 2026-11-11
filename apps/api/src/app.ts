@@ -3,7 +3,7 @@ import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
 import { DEFAULT_PANTRY, ParsedRecipe } from '@haul/core';
-import { ClaudeRecipeExtractor, extractFromPageText, fetchRecipe, parseRecipeText, type RecipeExtractor } from '@haul/recipe-parser';
+import { ClaudeRecipeExtractor, fetchRecipe, parseRecipeText, recipeFromPage, type RecipeExtractor } from '@haul/recipe-parser';
 import { DEMO_CATALOG, DEMO_STORES } from '@haul/resolver/demo';
 import { AnthropicReranker, buildNeeds, resolveBasket, unresolvedLine } from '@haul/resolver';
 import { type CatalogAdapter, createPkce, FixtureCatalog, InstacartClient, KrogerClient, RetailerError } from '@haul/retailers';
@@ -158,8 +158,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     }
     // Structured data first, then an "Ingredients" heading in the page text, then the LLM.
     const recipe =
-      (result.recipe?.ingredients.length ? result.recipe : null) ??
-      extractFromPageText(result.html, body.url) ??
+      recipeFromPage(result.html, body.url, result.recipe) ??
       (extractor ? await extractor.extract(result.html, body.url) : null);
     if (!recipe) return reply.code(422).send({ error: 'No recipe found on that page. Paste the ingredient list instead.' });
     return recipe;

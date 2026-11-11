@@ -1,0 +1,45 @@
+{
+  "url": "https://www.justonecookbook.com/chicken-katsu/",
+  "locationId": "01400943",
+  "expect": {
+    "chicken breast": {
+      "accept": [
+        "chicken breast"
+      ],
+      "reject": [
+        "breaded",
+        "nugget",
+        "tender"
+      ]
+    },
+    "panko": {
+      "accept": [
+        "panko"
+      ]
+    },
+    "1 large egg": {
+      "accept": [
+        "egg"
+      ],
+      "reject": [
+        "noodle",
+        "substitute",
+        "beaters"
+      ]
+    },
+    "tonkatsu sauce": {
+      "accept": [
+        "tonkatsu"
+      ]
+    }
+  },
+  "absent": [
+    "kosher salt",
+    "black pepper",
+    "3 cups neutral oil",
+    "all-purpose flour",
+    "Cabbage Salad",
+    "Sesame Dressing",
+    "tomato ((optional))"
+  ]
+}

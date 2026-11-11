@@ -1,0 +1,106 @@
+{
+  "url": "https://www.loveandlemons.com/vegetarian-chili/",
+  "locationId": "01400943",
+  "expect": {
+    "yellow onion": {
+      "accept": [
+        "onion"
+      ],
+      "reject": [
+        "green",
+        "powder",
+        "ring",
+        "soup",
+        "dip"
+      ]
+    },
+    "red bell pepper": {
+      "accept": [
+        "red bell pepper",
+        "red pepper"
+      ],
+      "reject": [
+        "flake",
+        "roasted",
+        "crushed"
+      ]
+    },
+    "garlic cloves": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "bread"
+      ]
+    },
+    "fire-roasted tomatoes": {
+      "accept": [
+        "fire.roasted.*tomato"
+      ]
+    },
+    "kidney beans": {
+      "accept": [
+        "kidney bean"
+      ]
+    },
+    "pinto beans": {
+      "accept": [
+        "pinto bean"
+      ],
+      "reject": [
+        "refried"
+      ]
+    },
+    "chipotle peppers": {
+      "accept": [
+        "chipotle"
+      ],
+      "reject": [
+        "mayo",
+        "salsa",
+        "seasoning",
+        "powder"
+      ]
+    },
+    "adobo sauce": {
+      "accept": [
+        "adobo"
+      ],
+      "reject": [
+        "seasoning"
+      ]
+    },
+    "corn kernels": {
+      "accept": [
+        "corn"
+      ],
+      "reject": [
+        "starch",
+        "meal",
+        "chip",
+        "syrup",
+        "flake",
+        "dog",
+        "cream style"
+      ]
+    },
+    "lime juice": {
+      "accept": [
+        "lime"
+      ],
+      "reject": [
+        "soda",
+        "lemon"
+      ]
+    }
+  },
+  "absent": [
+    "extra-virgin olive oil",
+    "sea salt",
+    "black pepper",
+    "chili powder (optional)",
+    "ground cumin (optional)"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "url": "https://minimalistbaker.com/easy-vegan-fried-rice/",
+  "locationId": "01400943",
+  "expect": {
+    "extra-firm tofu": {
+      "accept": [
+        "tofu"
+      ],
+      "reject": [
+        "silken",
+        "soft"
+      ]
+    },
+    "brown rice": {
+      "accept": [
+        "brown rice"
+      ],
+      "reject": [
+        "instant",
+        "minute",
+        "ready",
+        "microwave",
+        "cake",
+        "pasta",
+        "syrup"
+      ]
+    },
+    "4 cloves garlic": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "bread"
+      ]
+    },
+    "chopped green onion": {
+      "accept": [
+        "green onion",
+        "scallion"
+      ]
+    },
+    "1/2 cup peas": {
+      "accept": [
+        "peas"
+      ],
+      "reject": [
+        "carrot",
+        "snap",
+        "snow",
+        "chick",
+        "pod"
+      ]
+    },
+    "1/2 cup carrots": {
+      "accept": [
+        "carrot"
+      ],
+      "reject": [
+        "cake",
+        "juice"
+      ]
+    },
+    "tamari or soy sauce": {
+      "accept": [
+        "tamari"
+      ]
+    },
+    "peanut butter": {
+      "accept": [
+        "peanut butter"
+      ],
+      "reject": [
+        "cup",
+        "cookie",
+        "cracker"
+      ]
+    },
+    "organic brown sugar": {
+      "accept": [
+        "brown sugar"
+      ]
+    },
+    "chili garlic sauce": {
+      "accept": [
+        "chili garlic"
+      ]
+    }
+  },
+  "absent": [
+    "toasted sesame oil"
+  ]
+}

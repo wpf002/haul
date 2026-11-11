@@ -1,0 +1,45 @@
+{
+  "url": "https://www.inspiredtaste.net/24412/cocoa-brownies-recipe/",
+  "locationId": "01400943",
+  "expect": {
+    "unsalted butter": {
+      "accept": [
+        "unsalted butter"
+      ]
+    },
+    "cocoa powder": {
+      "accept": [
+        "cocoa"
+      ],
+      "reject": [
+        "hot cocoa",
+        "mix",
+        "drink"
+      ]
+    },
+    "vanilla extract": {
+      "accept": [
+        "vanilla ext"
+      ],
+      "reject": [
+        "imitation"
+      ]
+    },
+    "2 large cold eggs": {
+      "accept": [
+        "egg"
+      ],
+      "reject": [
+        "noodle",
+        "substitute",
+        "beaters"
+      ]
+    }
+  },
+  "absent": [
+    "granulated sugar",
+    "fine sea salt",
+    "all-purpose flour",
+    "chocolate chips, optional"
+  ]
+}

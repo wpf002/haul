@@ -1,0 +1,107 @@
+{
+  "url": "https://www.loveandlemons.com/falafel/",
+  "locationId": "01400943",
+  "expect": {
+    "uncooked chickpeas": {
+      "accept": [
+        "chickpea",
+        "garbanzo"
+      ],
+      "reject": [
+        "hummus",
+        "snack",
+        "roasted"
+      ]
+    },
+    "shallot or yellow onion": {
+      "accept": [
+        "shallot"
+      ]
+    },
+    "3  garlic cloves": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "bread"
+      ]
+    },
+    "lemon zest": {
+      "accept": [
+        "lemon"
+      ],
+      "reject": [
+        "juice",
+        "lime",
+        "pepper",
+        "soda",
+        "lemonade"
+      ]
+    },
+    "ground cumin": {
+      "accept": [
+        "cumin"
+      ]
+    },
+    "ground coriander": {
+      "accept": [
+        "coriander"
+      ]
+    },
+    "cayenne": {
+      "accept": [
+        "cayenne"
+      ],
+      "reject": [
+        "sauce"
+      ]
+    },
+    "baking powder": {
+      "accept": [
+        "baking powder"
+      ]
+    },
+    "fresh cilantro leaves": {
+      "accept": [
+        "cilantro"
+      ],
+      "reject": [
+        "dried",
+        "paste"
+      ]
+    },
+    "fresh parsley leaves": {
+      "accept": [
+        "parsley"
+      ],
+      "reject": [
+        "dried",
+        "flake"
+      ]
+    },
+    "Pita bread": {
+      "accept": [
+        "pita"
+      ],
+      "reject": [
+        "chip"
+      ]
+    },
+    "Hummus": {
+      "accept": [
+        "hummus"
+      ]
+    },
+    "Tahini Sauce": {
+      "accept": [
+        "tahini"
+      ]
+    }
+  },
+  "absent": [
+    "sea salt",
+    "extra-virgin olive oil"
+  ]
+}

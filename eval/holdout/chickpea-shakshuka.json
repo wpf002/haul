@@ -1,0 +1,98 @@
+{
+  "url": "https://minimalistbaker.com/1-pot-chickpea-shakshuka/",
+  "locationId": "01400943",
+  "expect": {
+    "white onion or shallot": {
+      "accept": [
+        "onion"
+      ],
+      "reject": [
+        "green",
+        "powder",
+        "ring",
+        "soup",
+        "dip"
+      ]
+    },
+    "red bell pepper": {
+      "accept": [
+        "red bell pepper",
+        "red pepper"
+      ],
+      "reject": [
+        "flake",
+        "roasted",
+        "crushed"
+      ]
+    },
+    "3 cloves garlic": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "bread"
+      ]
+    },
+    "crushed tomatoes": {
+      "accept": [
+        "crushed tomato"
+      ]
+    },
+    "tomato paste": {
+      "accept": [
+        "tomato paste"
+      ]
+    },
+    "coconut sugar": {
+      "accept": [
+        "coconut sugar"
+      ]
+    },
+    "smoked or sweet paprika": {
+      "accept": [
+        "paprika"
+      ]
+    },
+    "ground cumin": {
+      "accept": [
+        "cumin"
+      ]
+    },
+    "chili powder": {
+      "accept": [
+        "chili powder"
+      ]
+    },
+    "ground cinnamon": {
+      "accept": [
+        "cinnamon"
+      ],
+      "reject": [
+        "stick",
+        "sugar",
+        "roll"
+      ]
+    },
+    "chickpeas": {
+      "accept": [
+        "chickpea",
+        "garbanzo"
+      ],
+      "reject": [
+        "hummus",
+        "snack",
+        "pasta",
+        "roasted"
+      ]
+    }
+  },
+  "absent": [
+    "olive or avocado oil",
+    "Sea salt",
+    "cayenne pepper ((optional))",
+    "cardamom and coriander",
+    "olives ((optional"
+  ]
+}

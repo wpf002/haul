@@ -1,0 +1,96 @@
+{
+  "url": "https://www.foodnetwork.com/recipes/ina-garten/perfect-roast-chicken-recipe-1940592",
+  "locationId": "01400943",
+  "expect": {
+    "roasting chicken": {
+      "accept": [
+        "whole chicken",
+        "roaster",
+        "roasting chicken",
+        "whole fryer"
+      ],
+      "reject": [
+        "breast",
+        "thigh",
+        "rotisserie",
+        "wing"
+      ]
+    },
+    "fresh thyme": {
+      "accept": [
+        "thyme"
+      ],
+      "reject": [
+        "dried",
+        "ground"
+      ]
+    },
+    "1 lemon": {
+      "accept": [
+        "lemon"
+      ],
+      "reject": [
+        "juice",
+        "lime",
+        "pepper",
+        "soda",
+        "lemonade"
+      ]
+    },
+    "head garlic": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "minced"
+      ]
+    },
+    "butter, melted": {
+      "accept": [
+        "butter"
+      ],
+      "reject": [
+        "peanut",
+        "almond",
+        "apple"
+      ]
+    },
+    "yellow onion": {
+      "accept": [
+        "onion"
+      ],
+      "reject": [
+        "green",
+        "powder",
+        "ring",
+        "soup",
+        "dip"
+      ]
+    },
+    "4 carrots": {
+      "accept": [
+        "carrot"
+      ],
+      "reject": [
+        "cake",
+        "juice"
+      ]
+    },
+    "fennel": {
+      "accept": [
+        "fennel"
+      ],
+      "reject": [
+        "seed",
+        "ground"
+      ]
+    }
+  },
+  "absent": [
+    "Kosher salt",
+    "black pepper",
+    "Olive oil"
+  ]
+}

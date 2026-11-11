@@ -1,0 +1,105 @@
+{
+  "url": "https://www.recipetineats.com/butter-chicken/",
+  "locationId": "01400943",
+  "expect": {
+    "plain yoghurt": {
+      "accept": [
+        "yogurt"
+      ],
+      "reject": [
+        "vanilla",
+        "strawberry",
+        "blueberry",
+        "honey",
+        "drink"
+      ]
+    },
+    "lemon juice": {
+      "accept": [
+        "lemon"
+      ],
+      "reject": [
+        "lime",
+        "pepper",
+        "soda",
+        "lemonade"
+      ]
+    },
+    "tumeric powder": {
+      "accept": [
+        "turmeric"
+      ]
+    },
+    "garam masala": {
+      "accept": [
+        "garam masala"
+      ]
+    },
+    "chilli powder": {
+      "accept": [
+        "chil+i powder",
+        "cayenne"
+      ]
+    },
+    "ground cumin": {
+      "accept": [
+        "cumin"
+      ]
+    },
+    "1 tbsp ginger": {
+      "accept": [
+        "ginger"
+      ],
+      "reject": [
+        "ale",
+        "ground",
+        "candied",
+        "snap"
+      ]
+    },
+    "2 cloves garlic": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "bread"
+      ]
+    },
+    "chicken thigh": {
+      "accept": [
+        "chicken thigh"
+      ],
+      "reject": [
+        "breast"
+      ]
+    },
+    "ghee or butter": {
+      "accept": [
+        "ghee",
+        "butter"
+      ],
+      "reject": [
+        "peanut"
+      ]
+    },
+    "tomato passata": {
+      "accept": [
+        "passata",
+        "pur[eé]e"
+      ]
+    },
+    "heavy / thickened cream": {
+      "accept": [
+        "heavy (whipping )?cream",
+        "whipping cream"
+      ]
+    }
+  },
+  "absent": [
+    "1 tbsp sugar",
+    "1 1/4 tsp salt",
+    "Coriander/cilantro"
+  ]
+}

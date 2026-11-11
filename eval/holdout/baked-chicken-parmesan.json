@@ -1,0 +1,58 @@
+{
+  "url": "https://www.skinnytaste.com/baked-chicken-parmesan/",
+  "locationId": "01400943",
+  "expect": {
+    "chicken breasts": {
+      "accept": [
+        "chicken breast"
+      ],
+      "reject": [
+        "breaded",
+        "nugget",
+        "tender"
+      ]
+    },
+    "seasoned breadcrumbs": {
+      "accept": [
+        "(seasoned|italian).*bread ?crumb"
+      ]
+    },
+    "grated Parmesan": {
+      "accept": [
+        "parmesan"
+      ],
+      "reject": [
+        "basil",
+        "oregano",
+        "garlic"
+      ]
+    },
+    "2 tbsp butter": {
+      "accept": [
+        "butter"
+      ],
+      "reject": [
+        "peanut",
+        "almond",
+        "apple"
+      ]
+    },
+    "mozzarella": {
+      "accept": [
+        "mozzarella"
+      ],
+      "reject": [
+        "stick",
+        "string"
+      ]
+    },
+    "marinara": {
+      "accept": [
+        "marinara"
+      ]
+    }
+  },
+  "absent": [
+    "basil (or parsley"
+  ]
+}

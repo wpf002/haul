@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": { "eval": "tsx --env-file-if-exists=../.env run.ts" },
+  "scripts": {
+    "eval": "tsx --env-file-if-exists=../.env run.ts",
+    "eval:holdout": "tsx --env-file-if-exists=../.env holdout.ts"
+  },
   "dependencies": {
     "@haul/core": "workspace:*",
     "@haul/recipe-parser": "workspace:*",

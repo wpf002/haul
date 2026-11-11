@@ -14,6 +14,7 @@
     "db:generate": "pnpm --filter @haul/db exec prisma generate",
     "db:migrate": "pnpm --filter @haul/db exec prisma migrate dev",
     "eval": "pnpm --filter @haul/eval eval",
+    "eval:holdout": "pnpm --filter @haul/eval eval:holdout",
     "demo": "pnpm --parallel --filter @haul/api --filter @haul/web run demo"
   },
   "devDependencies": {

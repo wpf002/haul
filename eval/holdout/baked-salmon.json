@@ -1,0 +1,70 @@
+{
+  "url": "https://www.gimmesomeoven.com/baked-salmon/",
+  "locationId": "01400943",
+  "expect": {
+    "salmon filets": {
+      "accept": [
+        "salmon"
+      ],
+      "reject": [
+        "smoked",
+        "canned",
+        "pouch"
+      ]
+    },
+    "red onion": {
+      "accept": [
+        "red onion"
+      ],
+      "reject": [
+        "pickled"
+      ]
+    },
+    "cooked lentils": {
+      "accept": [
+        "lentil"
+      ],
+      "reject": [
+        "soup",
+        "chip",
+        "pasta"
+      ]
+    },
+    "ground cumin": {
+      "accept": [
+        "cumin"
+      ]
+    },
+    "ground coriander": {
+      "accept": [
+        "coriander"
+      ]
+    },
+    "fresh cilantro": {
+      "accept": [
+        "cilantro"
+      ],
+      "reject": [
+        "dried",
+        "paste"
+      ]
+    },
+    "1 lemon": {
+      "accept": [
+        "lemon"
+      ],
+      "reject": [
+        "juice",
+        "lime",
+        "pepper",
+        "soda",
+        "lemonade"
+      ]
+    }
+  },
+  "absent": [
+    "olive oil",
+    "black pepper",
+    "salt"
+  ]
+}

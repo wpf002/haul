@@ -1,5 +1,6 @@
 import type { ParsedRecipe } from '@haul/core';
 import { parse as parseHtml } from 'node-html-parser';
+import { extractFromPageText } from './fallback';
 import { parseIngredientLine } from './line';
 
 export { parseIngredientLine } from './line';
@@ -151,6 +152,11 @@ export async function fetchRecipe(
   } finally {
     clearTimeout(timer);
   }
+}
+
+/** Structured data when it lists ingredients, else an "Ingredients" heading in the page text. */
+export function recipeFromPage(html: string, sourceUrl: string | null, structured: ParsedRecipe | null = extractRecipeFromHtml(html, sourceUrl)): ParsedRecipe | null {
+  return (structured?.ingredients.length ? structured : null) ?? extractFromPageText(html, sourceUrl);
 }
 
 /**

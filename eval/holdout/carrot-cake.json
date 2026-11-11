@@ -1,0 +1,116 @@
+{
+  "url": "https://www.onceuponachef.com/recipes/carrot-cake.html",
+  "locationId": "01400943",
+  "expect": {
+    "dried currants": {
+      "accept": [
+        "currant"
+      ]
+    },
+    "baking soda": {
+      "accept": [
+        "baking soda"
+      ]
+    },
+    "ground cinnamon": {
+      "accept": [
+        "cinnamon"
+      ],
+      "reject": [
+        "stick",
+        "sugar",
+        "roll"
+      ]
+    },
+    "ground nutmeg": {
+      "accept": [
+        "nutmeg"
+      ]
+    },
+    "ground allspice": {
+      "accept": [
+        "allspice"
+      ]
+    },
+    "ground cloves": {
+      "accept": [
+        "clove"
+      ],
+      "reject": [
+        "garlic"
+      ]
+    },
+    "¾ cup pecans or walnuts": {
+      "accept": [
+        "pecan"
+      ],
+      "reject": [
+        "\\bpie\\b",
+        "praline",
+        "candied"
+      ]
+    },
+    "4 large eggs": {
+      "accept": [
+        "egg"
+      ],
+      "reject": [
+        "noodle",
+        "substitute",
+        "beaters"
+      ]
+    },
+    "dark brown sugar": {
+      "accept": [
+        "dark brown sugar"
+      ]
+    },
+    "shredded carrots": {
+      "accept": [
+        "carrot"
+      ],
+      "reject": [
+        "cake",
+        "juice"
+      ]
+    },
+    "8 oz cream cheese": {
+      "accept": [
+        "cream cheese"
+      ],
+      "reject": [
+        "frosting",
+        "strawberry",
+        "chive",
+        "onion"
+      ]
+    },
+    "unsalted butter": {
+      "accept": [
+        "unsalted butter"
+      ]
+    },
+    "vanilla extract": {
+      "accept": [
+        "vanilla ext"
+      ],
+      "reject": [
+        "imitation"
+      ]
+    },
+    "confectioners' sugar": {
+      "accept": [
+        "powdered sugar",
+        "confectioner"
+      ]
+    }
+  },
+  "absent": [
+    "all purpose flour",
+    "1 teaspoon salt",
+    "Pinch salt",
+    "granulated sugar",
+    "vegetable oil",
+    "(optional))"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "url": "https://www.recipetineats.com/chicken-chow-mein/",
+  "locationId": "01400943",
+  "expect": {
+    "chicken breast or thigh": {
+      "accept": [
+        "chicken (breast|thigh)"
+      ]
+    },
+    "green cabbage": {
+      "accept": [
+        "cabbage"
+      ],
+      "reject": [
+        "red"
+      ]
+    },
+    "peanut oil": {
+      "accept": [
+        "peanut oil"
+      ]
+    },
+    "2 cloves garlic": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "bread"
+      ]
+    },
+    "chow mein noodles": {
+      "accept": [
+        "chow mein",
+        "noodle"
+      ],
+      "reject": [
+        "crispy",
+        "crunchy",
+        "soup",
+        "ramen"
+      ]
+    },
+    "1  carrot": {
+      "accept": [
+        "carrot"
+      ],
+      "reject": [
+        "cake",
+        "juice"
+      ]
+    },
+    "bean sprouts": {
+      "accept": [
+        "bean sprout"
+      ]
+    },
+    "green onions": {
+      "accept": [
+        "green onion",
+        "scallion"
+      ]
+    },
+    "cornflour / cornstarch": {
+      "accept": [
+        "corn ?starch"
+      ],
+      "reject": [
+        "masa",
+        "meal"
+      ]
+    },
+    "soy sauce": {
+      "accept": [
+        "soy sauce"
+      ]
+    },
+    "oyster sauce": {
+      "accept": [
+        "oyster (flavou?red )?sauce"
+      ]
+    },
+    "Chinese cooking wine": {
+      "accept": [
+        "shaoxing",
+        "cooking wine",
+        "rice wine"
+      ]
+    },
+    "sesame oil": {
+      "accept": [
+        "sesame oil"
+      ]
+    },
+    "White pepper": {
+      "accept": [
+        "white pepper"
+      ]
+    }
+  },
+  "absent": [
+    "water",
+    "2 tsp sugar"
+  ]
+}

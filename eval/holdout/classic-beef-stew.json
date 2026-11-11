@@ -1,0 +1,133 @@
+{
+  "url": "https://www.tasteofhome.com/recipes/classic-beef-stew/",
+  "locationId": "01400943",
+  "expect": {
+    "beef stew meat": {
+      "accept": [
+        "beef.*stew",
+        "stew.*beef"
+      ],
+      "reject": [
+        "canned",
+        "dinty",
+        "soup"
+      ]
+    },
+    "smoked paprika": {
+      "accept": [
+        "smoked paprika"
+      ]
+    },
+    "tomato paste": {
+      "accept": [
+        "tomato paste"
+      ]
+    },
+    "herbes de Provence": {
+      "accept": [
+        "herbes? de provence"
+      ]
+    },
+    "2 garlic cloves": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "bread"
+      ]
+    },
+    "dry red wine": {
+      "accept": [
+        "red wine",
+        "cabernet",
+        "merlot",
+        "pinot noir",
+        "red blend"
+      ],
+      "reject": [
+        "vinegar"
+      ]
+    },
+    "beef broth": {
+      "accept": [
+        "beef (broth|stock)"
+      ]
+    },
+    "minced fresh rosemary": {
+      "accept": [
+        "rosemary"
+      ],
+      "reject": [
+        "dried",
+        "ground"
+      ]
+    },
+    "bay leaves": {
+      "accept": [
+        "bay lea"
+      ]
+    },
+    "peeled potatoes": {
+      "accept": [
+        "potato"
+      ],
+      "reject": [
+        "chip",
+        "mashed",
+        "instant",
+        "sweet"
+      ]
+    },
+    "chopped onions": {
+      "accept": [
+        "onion"
+      ],
+      "reject": [
+        "green",
+        "powder",
+        "ring",
+        "soup",
+        "dip"
+      ]
+    },
+    "sliced carrots": {
+      "accept": [
+        "carrot"
+      ],
+      "reject": [
+        "cake",
+        "juice"
+      ]
+    },
+    "balsamic or red wine vinegar": {
+      "accept": [
+        "balsamic"
+      ],
+      "reject": [
+        "glaze",
+        "dressing"
+      ]
+    },
+    "fresh or frozen peas": {
+      "accept": [
+        "peas"
+      ],
+      "reject": [
+        "carrot",
+        "snap",
+        "snow",
+        "chick",
+        "pod"
+      ]
+    }
+  },
+  "absent": [
+    "salt, divided",
+    "all-purpose flour",
+    "canola oil",
+    "cold water",
+    "Additional fresh rosemary"
+  ]
+}

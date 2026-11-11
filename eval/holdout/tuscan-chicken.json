@@ -1,0 +1,77 @@
+{
+  "url": "https://www.delish.com/cooking/recipe-ideas/a19636089/creamy-tuscan-chicken-recipe/",
+  "locationId": "01400943",
+  "expect": {
+    "chicken breasts": {
+      "accept": [
+        "chicken breast"
+      ],
+      "reject": [
+        "breaded",
+        "nugget",
+        "tender"
+      ]
+    },
+    "dried oregano": {
+      "accept": [
+        "oregano"
+      ],
+      "reject": [
+        "oil"
+      ]
+    },
+    "unsalted butter": {
+      "accept": [
+        "unsalted butter"
+      ]
+    },
+    "3 garlic cloves": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "bread"
+      ]
+    },
+    "cherry tomatoes": {
+      "accept": [
+        "cherry tomato",
+        "grape tomato"
+      ]
+    },
+    "baby spinach": {
+      "accept": [
+        "spinach"
+      ],
+      "reject": [
+        "frozen",
+        "dip",
+        "creamed"
+      ]
+    },
+    "heavy cream": {
+      "accept": [
+        "heavy (whipping )?cream",
+        "whipping cream"
+      ]
+    },
+    "Parmesan, finely grated": {
+      "accept": [
+        "parmesan"
+      ],
+      "reject": [
+        "basil",
+        "oregano",
+        "garlic"
+      ]
+    }
+  },
+  "absent": [
+    "extra-virgin olive oil",
+    "Kosher salt",
+    "black pepper",
+    "Lemon wedges"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "url": "https://sallysbakingaddiction.com/homemade-pizza-crust-recipe/",
+  "locationId": "01400943",
+  "expect": {
+    "instant yeast": {
+      "accept": [
+        "yeast"
+      ],
+      "reject": [
+        "nutritional",
+        "brewer"
+      ]
+    },
+    "cornmeal": {
+      "accept": [
+        "corn ?meal"
+      ],
+      "reject": [
+        "mix",
+        "muffin"
+      ]
+    },
+    "pizza sauce": {
+      "accept": [
+        "pizza sauce"
+      ]
+    },
+    "shredded mozzarella": {
+      "accept": [
+        "mozzarella"
+      ],
+      "reject": [
+        "fresh",
+        "string",
+        "stick"
+      ]
+    }
+  },
+  "absent": [
+    "warm water",
+    "granulated sugar",
+    "all-purpose flour",
+    "(30ml) extra-virgin olive oil",
+    "olive oil, for brushing",
+    "1 teaspoon salt",
+    "garlic cloves, minced (optional)"
+  ]
+}

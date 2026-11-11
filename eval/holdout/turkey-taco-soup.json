@@ -1,0 +1,87 @@
+{
+  "url": "https://www.skinnytaste.com/turkey-chili-taco-soup/",
+  "locationId": "01400943",
+  "expect": {
+    "ground turkey": {
+      "accept": [
+        "ground turkey"
+      ],
+      "reject": [
+        "sausage",
+        "breakfast"
+      ]
+    },
+    "medium onion": {
+      "accept": [
+        "onion"
+      ],
+      "reject": [
+        "green",
+        "powder",
+        "ring",
+        "soup",
+        "dip"
+      ]
+    },
+    "1 bell pepper": {
+      "accept": [
+        "bell pepper"
+      ],
+      "reject": [
+        "roasted",
+        "stuffed"
+      ]
+    },
+    "rotel": {
+      "accept": [
+        "rotel",
+        "tomatoes.*green chil",
+        "tomato.*chil"
+      ]
+    },
+    "corn (drained)": {
+      "accept": [
+        "corn"
+      ],
+      "reject": [
+        "starch",
+        "meal",
+        "chip",
+        "syrup",
+        "flake",
+        "dog",
+        "cream style"
+      ]
+    },
+    "kidney beans": {
+      "accept": [
+        "kidney bean"
+      ]
+    },
+    "tomato sauce": {
+      "accept": [
+        "tomato sauce"
+      ],
+      "reject": [
+        "pasta",
+        "marinara"
+      ]
+    },
+    "refried beans": {
+      "accept": [
+        "refried"
+      ]
+    },
+    "taco seasoning": {
+      "accept": [
+        "taco seasoning"
+      ]
+    },
+    "chicken broth": {
+      "accept": [
+        "chicken (broth|stock)"
+      ]
+    }
+  },
+  "absent": []
+}

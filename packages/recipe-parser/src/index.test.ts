@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { extractRecipeFromHtml, isPrivateHost, parseIngredientLine as p, parseRecipeText } from './index';
+import { extractRecipeFromHtml, isPrivateHost, parseIngredientLine as p, parseRecipeText, recipeFromPage } from './index';
 
 describe('ingredient lines', () => {
   it.each([
@@ -50,6 +50,14 @@ describe('JSON-LD extraction', () => {
   });
   it('returns null when there is no recipe', () => {
     expect(extractRecipeFromHtml('<html><body>hi</body></html>')).toBeNull();
+  });
+});
+
+describe('recipeFromPage', () => {
+  it('falls back to the page text when the Recipe node lists no ingredients', () => {
+    const html = `<html><head><script type="application/ld+json">${JSON.stringify({ '@type': 'Recipe', name: 'Toast' })}</script></head>
+      <body><h2>Ingredients</h2><ul><li>2 slices bread</li><li>1 tbsp butter</li></ul><h2>Instructions</h2><p>Toast it.</p></body></html>`;
+    expect(recipeFromPage(html, null)?.ingredients.map((i) => i.name)).toEqual(['bread', 'butter']);
   });
 });
 

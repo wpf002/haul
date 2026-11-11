@@ -1,0 +1,89 @@
+{
+  "url": "https://natashaskitchen.com/beef-stroganoff/",
+  "locationId": "01400943",
+  "expect": {
+    "top sirloin": {
+      "accept": [
+        "sirloin"
+      ],
+      "reject": [
+        "ground"
+      ]
+    },
+    "unsalted butter": {
+      "accept": [
+        "unsalted butter"
+      ]
+    },
+    "medium onion": {
+      "accept": [
+        "onion"
+      ],
+      "reject": [
+        "green",
+        "powder",
+        "ring",
+        "soup",
+        "dip"
+      ]
+    },
+    "brown mushrooms": {
+      "accept": [
+        "mushroom"
+      ],
+      "reject": [
+        "soup",
+        "canned",
+        "dried"
+      ]
+    },
+    "garlic cloves": {
+      "accept": [
+        "garlic"
+      ],
+      "reject": [
+        "powder",
+        "salt",
+        "bread"
+      ]
+    },
+    "beef broth": {
+      "accept": [
+        "beef (broth|stock)"
+      ]
+    },
+    "heavy whipping cream": {
+      "accept": [
+        "heavy (whipping )?cream",
+        "whipping cream"
+      ]
+    },
+    "sour cream": {
+      "accept": [
+        "sour cream"
+      ],
+      "reject": [
+        "dip",
+        "onion"
+      ]
+    },
+    "Worcestershire": {
+      "accept": [
+        "worcestershire"
+      ]
+    },
+    "dijon": {
+      "accept": [
+        "dijon"
+      ]
+    }
+  },
+  "absent": [
+    "olive oil",
+    "all-purpose flour",
+    "1/2 tsp salt",
+    "black pepper",
+    "egg noodles",
+    "green onion or parsley"
+  ]
+}

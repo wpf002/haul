@@ -1,0 +1,110 @@
+{
+  "url": "https://www.wellplated.com/sheet-pan-chicken-fajitas/",
+  "locationId": "01400943",
+  "expect": {
+    "chicken breasts": {
+      "accept": [
+        "chicken breast"
+      ],
+      "reject": [
+        "breaded",
+        "nugget",
+        "tender"
+      ]
+    },
+    "bell peppers": {
+      "accept": [
+        "bell pepper"
+      ],
+      "reject": [
+        "roasted",
+        "stuffed"
+      ]
+    },
+    "red onion": {
+      "accept": [
+        "red onion"
+      ],
+      "reject": [
+        "pickled"
+      ]
+    },
+    "small limes": {
+      "accept": [
+        "lime"
+      ],
+      "reject": [
+        "juice",
+        "soda",
+        "lemon"
+      ]
+    },
+    "chili powder": {
+      "accept": [
+        "chili powder"
+      ]
+    },
+    "garlic powder": {
+      "accept": [
+        "garlic powder"
+      ],
+      "reject": [
+        "salt"
+      ]
+    },
+    "ground cumin": {
+      "accept": [
+        "cumin"
+      ]
+    },
+    "onion powder": {
+      "accept": [
+        "onion powder"
+      ]
+    },
+    "corn tortillas": {
+      "accept": [
+        "tortilla"
+      ],
+      "reject": [
+        "chip"
+      ]
+    },
+    "Sour cream or plain Greek": {
+      "accept": [
+        "sour cream"
+      ],
+      "reject": [
+        "dip"
+      ]
+    },
+    "Shredded cheese": {
+      "accept": [
+        "shredded.*cheese",
+        "cheese.*shred"
+      ]
+    },
+    "avocado or guacamole": {
+      "accept": [
+        "avocado"
+      ],
+      "reject": [
+        "oil"
+      ]
+    },
+    "Fresh cilantro": {
+      "accept": [
+        "cilantro"
+      ],
+      "reject": [
+        "dried",
+        "paste"
+      ]
+    }
+  },
+  "absent": [
+    "olive oil",
+    "kosher salt",
+    "cayenne pepper (optional)"
+  ]
+}

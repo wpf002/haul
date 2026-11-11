@@ -10,18 +10,11 @@
  */
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { type BasketLine, DEFAULT_PANTRY } from '@haul/core';
+import { DEFAULT_PANTRY } from '@haul/core';
 import { parseRecipeText } from '@haul/recipe-parser';
 import { AnthropicReranker, buildNeeds, resolveBasket } from '@haul/resolver';
-import { DEMO_CATALOG } from '@haul/resolver/demo';
-import { type CatalogAdapter, FixtureCatalog, KrogerClient, RecordingCatalog } from '@haul/retailers';
+import { catalog, type Expect, grade, pct, runsDir } from './lib';
 
-interface Expect {
-  /** Pick passes if its description matches any of these (case-insensitive regex). */
-  accept: string[];
-  reject?: string[];
-  packs?: number;
-}
 interface Label {
   recipe: string;
   locationId: string;
@@ -39,28 +32,8 @@ const live = args.includes('--live');
 const only = args.includes('--only') ? args[args.indexOf('--only') + 1] : null;
 const dir = import.meta.dirname;
 
-function catalog(): CatalogAdapter {
-  const file = join(dir, 'runs', 'catalog-cache.json');
-  if (!live) return new FixtureCatalog(DEMO_CATALOG);
-  const id = process.env.KROGER_CLIENT_ID;
-  const secret = process.env.KROGER_CLIENT_SECRET;
-  if (!id || !secret) throw new Error('--live needs KROGER_CLIENT_ID and KROGER_CLIENT_SECRET in .env');
-  return new RecordingCatalog(new KrogerClient({ clientId: id, clientSecret: secret, redirectUri: 'http://localhost' }), file);
-}
-
-const re = (s: string) => new RegExp(s, 'i');
-
-function grade(line: BasketLine | undefined, e: Expect): { ok: boolean; why: string } {
-  if (!line?.pick) return { ok: false, why: 'no pick' };
-  const d = line.pick.description;
-  if (!e.accept.some((a) => re(a).test(d))) return { ok: false, why: `wrong product: ${d}` };
-  if (e.reject?.some((r) => re(r).test(d))) return { ok: false, why: `rejected product: ${d}` };
-  if (e.packs !== undefined && e.packs !== line.packs) return { ok: false, why: `packs ${line.packs}, want ${e.packs}` };
-  return { ok: true, why: '' };
-}
-
 async function main() {
-  const cat = catalog();
+  const cat = catalog(live);
   const reranker = process.env.ANTHROPIC_API_KEY && args.includes('--rerank')
     ? new AnthropicReranker(process.env.ANTHROPIC_API_KEY, process.env.RERANK_MODEL ?? 'claude-haiku-5-5')
     : null;
@@ -96,13 +69,12 @@ async function main() {
     }
   }
 
-  const pct = (a: number, b: number) => (b ? `${((100 * a) / b).toFixed(1)}%` : 'n/a');
   console.log(`\nHaul eval · ${live ? 'live Kroger' : 'demo catalog'}${reranker ? ' + rerank' : ''}`);
   console.log(`Acceptable without edits: ${pass}/${total} (${pct(pass, total)})   target ≥ 85%`);
   for (const [c, v] of Object.entries(byConf)) console.log(`  ${c.padEnd(9)} ${pct(v.ok, v.n).padStart(6)} of ${v.n}`);
   if (failures.length) console.log(`\nFailures:\n  ${failures.join('\n  ')}`);
 
-  writeFileSync(join(dir, 'runs', `run-${Date.now()}.json`), JSON.stringify({ live, total, pass, byConf, failures }, null, 2));
+  writeFileSync(join(runsDir, `run-${Date.now()}.json`), JSON.stringify({ live, total, pass, byConf, failures }, null, 2));
   process.exitCode = total && pass / total < 0.85 ? 1 : 0;
 }
 

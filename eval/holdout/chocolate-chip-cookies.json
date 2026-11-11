@@ -1,0 +1,63 @@
+{
+  "url": "https://pinchofyum.com/the-best-soft-chocolate-chip-cookies",
+  "locationId": "01400943",
+  "expect": {
+    "salted butter": {
+      "accept": [
+        "butter"
+      ],
+      "reject": [
+        "unsalted",
+        "peanut"
+      ]
+    },
+    "light brown sugar": {
+      "accept": [
+        "brown sugar"
+      ],
+      "reject": [
+        "dark"
+      ]
+    },
+    "1 teaspoon vanilla": {
+      "accept": [
+        "vanilla ext"
+      ],
+      "reject": [
+        "imitation",
+        "ice cream",
+        "yogurt",
+        "wafer"
+      ]
+    },
+    "1 egg": {
+      "accept": [
+        "egg"
+      ],
+      "reject": [
+        "noodle",
+        "substitute",
+        "beaters"
+      ]
+    },
+    "baking soda": {
+      "accept": [
+        "baking soda"
+      ]
+    },
+    "chocolate chips": {
+      "accept": [
+        "chocolate chip",
+        "morsel"
+      ],
+      "reject": [
+        "cookie"
+      ]
+    }
+  },
+  "absent": [
+    "white sugar",
+    "all purpose flour",
+    "salt (but"
+  ]
+}
