@@ -19,7 +19,7 @@ const IDENTITY_SHIFTERS = [
   'sauce', 'soup', 'mix', 'kit', 'seasoned', 'seasoning', 'flavored', 'chips', 'crackers', 'candy',
   'dressing', 'marinade', 'soda', 'frozen', 'dried', 'powder', 'paste', 'juice', 'snack', 'bar', 'bars',
   'cooked', 'canned', 'smoked', 'breaded', 'spread', 'dip', 'drink', 'baby', 'pet', 'dog', 'cat',
-  'cereal', 'cookie', 'cookies', 'cake', 'pie', 'roasted', 'pickled', 'instant', 'lite', 'light',
+  'cereal', 'cookie', 'cookies', 'cake', 'pie', 'roasted', 'pickled', 'instant', 'lite', 'light', 'imitation',
   // "butter" vs "peanut butter", "milk" vs "almond milk"
   'peanut', 'almond', 'cashew', 'coconut', 'oat', 'soy',
   // "onion" vs "green onions", "beans" vs "green beans"
@@ -100,13 +100,18 @@ export function rankCandidates(need: ShoppingNeed, products: RetailProduct[], pa
   return products.map((p) => scoreCandidate(need, p, pantry, cheapest)).sort((a, b) => b.score - a.score);
 }
 
+const isSameItem = (s: Scored) => s.parts.nameScore === 1 && s.parts.shiftPenalty === 0;
+
 export function confidenceOf(need: ShoppingNeed, ranked: Scored[]): Confidence {
   const top = ranked[0];
   if (!top || top.score < 0.45) return 'ambiguous';
   // Allergen, infant, and alcohol lines always get a human look.
   if (need.flags.some((f) => f !== 'optional')) return 'check';
-  const margin = top.score - (ranked[1]?.score ?? 0);
-  if (top.score >= 0.75 && margin >= 0.05 && !top.estimated && top.parts.nameScore === 1) return 'high';
+  // Margin is measured against the best runner-up that is a different item. Other brands of the same
+  // item (full name match, no identity shift) are interchangeable and score within a few points of the top.
+  const rival = ranked.slice(1).find((r) => !isSameItem(r));
+  const margin = top.score - (rival?.score ?? 0);
+  if (top.score >= 0.75 && margin >= 0.05 && !top.estimated && isSameItem(top)) return 'high';
   return 'check';
 }
 
