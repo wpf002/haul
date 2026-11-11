@@ -1,0 +1,14 @@
+{
+  "recipe": "guacamole.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "avocado": {"accept": ["avocado"], "reject": ["oil", "dip", "guac", "spread"]},
+    "lime": {"accept": ["lime"], "reject": ["juice", "soda", "lemon", "chips", "pickle"]},
+    "red onion": {"accept": ["red onion"]},
+    "cilantro": {"accept": ["cilantro"], "reject": ["dressing", "paste", "rice", "lime", "seasoning"]},
+    "jalape\u00f1o": {"accept": ["jalape"], "reject": ["sliced", "pickled", "chips", "jack"]},
+    "roma tomatoes": {"accept": ["roma"]}
+  },
+  "absent": ["salt"]
+}

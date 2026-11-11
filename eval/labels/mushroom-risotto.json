@@ -1,0 +1,15 @@
+{
+  "recipe": "mushroom-risotto.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "baby bella mushrooms": {"accept": ["cremini", "crimini", "baby bella"]},
+    "chicken broth": {"accept": ["chicken (broth|stock)"], "reject": ["bouillon", "cube", "base"]},
+    "grated parmesan cheese": {"accept": ["parmesan"], "reject": ["basil", "oregano", "garlic", "alfredo", "crisps", "dressing"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "thyme": {"accept": ["thyme"]},
+    "arborio rice": {"accept": ["arborio"]},
+    "shallot": {"accept": ["shallot"]},
+    "dry white wine": {"accept": ["white wine", "sauvignon", "pinot grigio", "chardonnay"], "reject": ["vinegar"]}
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "recipe": "turkey-meatballs.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "panko breadcrumb": {"accept": ["panko"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "grated parmesan cheese": {"accept": ["parmesan"], "reject": ["basil", "oregano", "garlic", "alfredo", "crisps", "dressing"]},
+    "marinara sauce": {"accept": ["marinara"], "packs": 1},
+    "ground turkey": {"accept": ["ground turkey"], "reject": ["sausage", "burger", "meatball"]},
+    "spaghetti": {"accept": ["spaghetti"], "reject": ["sauce", "squash"], "packs": 1}
+  }
+}

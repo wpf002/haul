@@ -1,0 +1,14 @@
+{
+  "recipe": "black-bean-burgers.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "black beans": {"accept": ["black beans"], "reject": ["refried", "soup", "chips"]},
+    "panko breadcrumb": {"accept": ["panko"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "chili powder": {"accept": ["chili powder"]},
+    "avocado": {"accept": ["avocado"], "reject": ["oil", "dip", "guac", "spread"]},
+    "hamburger bun": {"accept": ["(hamburger|burger).*bun"], "reject": ["hot dog"]},
+    "pepper jack cheese": {"accept": ["pepper ?jack"]}
+  }
+}

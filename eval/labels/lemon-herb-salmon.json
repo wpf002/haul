@@ -1,0 +1,12 @@
+{
+  "recipe": "lemon-herb-salmon.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "salmon fillet": {"accept": ["salmon"], "reject": ["smoked", "canned", "pouch", "burger", "jerky"]},
+    "lemon": {"accept": ["lemon"], "reject": ["juice", "lime", "pepper", "curd", "cake", "tea"]},
+    "garlic": {"accept": ["garlic"], "reject": ["powder", "salt", "bread", "seasoning", "pepper", "butter"]},
+    "dill": {"accept": ["dill"], "reject": ["pickle", "dried"]},
+    "asparagus": {"accept": ["asparagus"], "reject": ["frozen", "soup"]}
+  }
+}

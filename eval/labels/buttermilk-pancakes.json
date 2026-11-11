@@ -1,0 +1,13 @@
+{
+  "recipe": "buttermilk-pancakes.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "baking powder": {"accept": ["baking powder"]},
+    "baking soda": {"accept": ["baking soda"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "buttermilk": {"accept": ["buttermilk"], "reject": ["pancake", "biscuit", "ranch", "mix", "bread"]}
+  },
+  "absent": ["all-purpose flour", "sugar", "salt", "maple syrup"]
+}

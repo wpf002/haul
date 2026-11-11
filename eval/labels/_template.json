@@ -10,5 +10,6 @@
       "packs": 1
     }
   },
-  "absent": ["keys that should be filtered out: pantry staples, optional garnish"]
+  "absent": ["keys that should be filtered out: pantry staples, optional garnish"],
+  "liveOnly": "true when the demo catalog has no products for this recipe"
 }

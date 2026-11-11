@@ -1,0 +1,14 @@
+{
+  "recipe": "banana-bread.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "banana": {"accept": ["banana"], "reject": ["chips", "bread", "dried", "pudding", "baby food"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "light brown sugar": {"accept": ["brown sugar"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "vanilla extract": {"accept": ["vanilla extract"], "reject": ["imitation"]},
+    "baking soda": {"accept": ["baking soda"]}
+  },
+  "absent": ["all-purpose flour", "walnut"]
+}

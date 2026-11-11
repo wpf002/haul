@@ -1,0 +1,14 @@
+{
+  "recipe": "fish-tacos.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "corn tortilla": {"accept": ["corn tortilla", "tortilla.*corn"], "reject": ["chips", "flour"]},
+    "coleslaw mix": {"accept": ["cole ?slaw"], "reject": ["dressing"]},
+    "lime": {"accept": ["lime"], "reject": ["juice", "soda", "lemon", "chips", "pickle"]},
+    "avocado": {"accept": ["avocado"], "reject": ["oil", "dip", "guac", "spread"]},
+    "chili powder": {"accept": ["chili powder"]},
+    "cod fillet": {"accept": ["cod"], "reject": ["breaded", "battered"]},
+    "mayonnaise": {"accept": ["mayo"]}
+  }
+}

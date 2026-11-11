@@ -1,0 +1,14 @@
+{
+  "recipe": "chicken-fried-rice.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "boneless skinless chicken breasts": {"accept": ["chicken breast"], "reject": ["breaded", "nugget", "tender", "grilled", "strips"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "soy sauce": {"accept": ["soy sauce"]},
+    "green onions": {"accept": ["green onion", "scallion"]},
+    "sesame oil": {"accept": ["sesame oil"]},
+    "long grain white rice": {"accept": ["white rice"], "reject": ["minute", "instant", "ready", "microwav"]},
+    "frozen peas and carrot": {"accept": ["peas (and|&) carrots"]}
+  }
+}

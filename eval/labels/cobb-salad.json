@@ -1,0 +1,15 @@
+{
+  "recipe": "cobb-salad.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "boneless skinless chicken breasts": {"accept": ["chicken breast"], "reject": ["breaded", "nugget", "tender", "grilled", "strips"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "romaine lettuce": {"accept": ["romaine"], "reject": ["kit", "caesar"]},
+    "avocado": {"accept": ["avocado"], "reject": ["oil", "dip", "guac", "spread"]},
+    "cherry tomatoes": {"accept": ["cherry tomato", "grape tomato"]},
+    "bacon": {"accept": ["bacon"], "reject": ["bits", "turkey", "jerky", "bacon bits"]},
+    "crumbled blue cheese": {"accept": ["blue cheese"], "reject": ["dressing"]},
+    "ranch dressing": {"accept": ["ranch"], "reject": ["seasoning", "mix"]}
+  }
+}

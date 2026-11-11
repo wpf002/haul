@@ -1,0 +1,16 @@
+{
+  "recipe": "beef-broccoli.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "soy sauce": {"accept": ["soy sauce"]},
+    "light brown sugar": {"accept": ["brown sugar"]},
+    "ginger": {"accept": ["ginger"], "reject": ["ground", "ale", "candied", "snap", "dressing"]},
+    "garlic": {"accept": ["garlic"], "reject": ["powder", "salt", "bread", "seasoning", "pepper", "butter"]},
+    "sesame oil": {"accept": ["sesame oil"]},
+    "jasmine rice": {"accept": ["jasmine rice"], "reject": ["ready", "microwav", "minute"]},
+    "flank steak": {"accept": ["flank"]},
+    "broccoli floret": {"accept": ["broccoli"], "reject": ["slaw", "rice", "cheese", "soup"]},
+    "cornstarch": {"accept": ["corn ?starch"]}
+  }
+}

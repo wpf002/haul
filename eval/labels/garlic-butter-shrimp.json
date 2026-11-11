@@ -1,0 +1,14 @@
+{
+  "recipe": "garlic-butter-shrimp.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "shrimp": {"accept": ["shrimp"], "reject": ["breaded", "cocktail", "popcorn", "tempura", "ramen"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "garlic": {"accept": ["garlic"], "reject": ["powder", "salt", "bread", "seasoning", "pepper", "butter"]},
+    "lemon": {"accept": ["lemon"], "reject": ["juice", "lime", "pepper", "curd", "cake", "tea"]},
+    "linguine": {"accept": ["linguine"]},
+    "red pepper flakes": {"accept": ["red pepper flakes", "crushed red pepper"]}
+  },
+  "absent": ["parsley"]
+}

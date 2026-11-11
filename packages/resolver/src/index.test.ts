@@ -3,7 +3,8 @@ import { parseRecipeText } from '@haul/recipe-parser';
 import { FixtureCatalog } from '@haul/retailers';
 import { describe, expect, it } from 'vitest';
 import { SAMPLE_CATALOG } from './fixtures';
-import { buildNeeds, ingredientKey, resolveBasket } from './index';
+import type { RetailProduct } from '@haul/core';
+import { buildNeeds, fallbackTerms, ingredientKey, resolveBasket } from './index';
 
 const CHILI = `Ingredients
 - 1 lb ground beef
@@ -24,6 +25,22 @@ describe('needs', () => {
     expect(ingredientKey('onions')).toBe('onions');
     expect(ingredientKey('large eggs')).toBe('egg');
     expect(ingredientKey('cherries')).toBe('cherry');
+  });
+
+  // Regressions from the 50-recipe live eval.
+  it('singularizes -us, -leaves and -oes words correctly', () => {
+    expect(ingredientKey('asparagus')).toBe('asparagus');
+    expect(ingredientKey('bay leaves')).toBe('bay leaf');
+    expect(ingredientKey('basil leaves')).toBe('basil');
+    expect(ingredientKey('cremini mushrooms')).toBe('baby bella mushrooms');
+  });
+
+  it('flags infant and alcohol items only when they are', () => {
+    const recipe = parseRecipeText('Ingredients\n- 5 oz baby spinach\n- 2 tbsp red wine vinegar\n- 1 cup dry white wine\n');
+    const flags = Object.fromEntries(buildNeeds([{ recipe }], DEFAULT_PANTRY).needs.map((n) => [n.key, n.flags]));
+    expect(flags['baby spinach']).toEqual([]);
+    expect(flags['red wine vinegar']).toEqual([]);
+    expect(flags['dry white wine']).toEqual(['alcohol']);
   });
 
   it('drops pantry staples and optional garnish', () => {
@@ -52,6 +69,22 @@ describe('needs', () => {
 });
 
 describe('resolver', () => {
+  // Regression: live Kroger returned nothing for "dried brown lentils", so the line had no pick.
+  it('retries a search with leading words dropped when it finds nothing', async () => {
+    expect(fallbackTerms('dried brown lentils')).toEqual(['dried brown lentils', 'brown lentils', 'lentils']);
+    const lentils: RetailProduct = {
+      retailer: 'kroger', productId: 'lentils', upc: null, description: 'Kroger® Lentils', brand: null, sizeText: '16 oz',
+      priceCents: 150, promoPriceCents: null, inStock: true, categories: [], imageUrl: null,
+    };
+    const searched: string[] = [];
+    const catalog = new FixtureCatalog([]);
+    catalog.search = async (term) => { searched.push(term); return term === 'lentils' ? [lentils] : []; };
+    const recipe = parseRecipeText('Ingredients\n- 1 cup dried brown lentils\n');
+    const [line] = await resolveBasket(buildNeeds([{ recipe }], DEFAULT_PANTRY).needs, catalog, { locationId: 'test', pantry: DEFAULT_PANTRY });
+    expect(searched).toEqual(['dried brown lentils', 'brown lentils', 'lentils']);
+    expect(line?.pick?.productId).toBe('lentils');
+  });
+
   it('builds a sensible chili basket', async () => {
     const { needs } = buildNeeds([{ recipe: parseRecipeText(CHILI) }], DEFAULT_PANTRY);
     const lines = await resolveBasket(needs, new FixtureCatalog(SAMPLE_CATALOG), { locationId: 'test', pantry: DEFAULT_PANTRY });

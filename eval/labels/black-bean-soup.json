@@ -1,0 +1,15 @@
+{
+  "recipe": "black-bean-soup.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "black beans": {"accept": ["black beans"], "reject": ["refried", "soup", "chips"]},
+    "yellow onion": {"accept": ["yellow onion"]},
+    "carrot": {"accept": ["carrot"], "reject": ["juice", "cake", "peas", "baby food"]},
+    "celery": {"accept": ["celery"], "reject": ["salt", "seed"]},
+    "garlic": {"accept": ["garlic"], "reject": ["powder", "salt", "bread", "seasoning", "pepper", "butter"]},
+    "vegetable broth": {"accept": ["vegetable (broth|stock)"], "reject": ["bouillon", "cube", "base"]},
+    "ground cumin": {"accept": ["cumin"], "reject": ["seed"]}
+  },
+  "absent": ["avocado"]
+}

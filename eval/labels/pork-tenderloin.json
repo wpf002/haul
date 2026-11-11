@@ -1,0 +1,13 @@
+{
+  "recipe": "pork-tenderloin.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "honey": {"accept": ["honey"], "reject": ["mustard", "ham", "nut", "graham", "turkey", "bbq"]},
+    "garlic": {"accept": ["garlic"], "reject": ["powder", "salt", "bread", "seasoning", "pepper", "butter"]},
+    "pork tenderloin": {"accept": ["pork tenderloin"], "reject": ["marinated", "seasoned"]},
+    "dijon mustard": {"accept": ["dijon"]},
+    "rosemary": {"accept": ["rosemary"]},
+    "green beans": {"accept": ["green bean"], "reject": ["casserole"]}
+  }
+}

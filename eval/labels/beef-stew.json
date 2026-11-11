@@ -1,0 +1,15 @@
+{
+  "recipe": "beef-stew.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "carrot": {"accept": ["carrot"], "reject": ["juice", "cake", "peas", "baby food"]},
+    "yellow onion": {"accept": ["yellow onion"]},
+    "thyme": {"accept": ["thyme"]},
+    "beef chuck roast": {"accept": ["chuck"], "reject": ["ground"]},
+    "red potatoes": {"accept": ["red (\\w+ )?potato"]},
+    "tomato paste": {"accept": ["tomato paste"], "packs": 1},
+    "beef broth": {"accept": ["beef (broth|stock)"], "reject": ["bouillon", "cube", "base"]},
+    "frozen peas": {"accept": ["peas"], "reject": ["carrot", "snap", "split", "chick"]}
+  }
+}

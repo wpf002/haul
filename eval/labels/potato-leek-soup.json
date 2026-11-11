@@ -1,0 +1,13 @@
+{
+  "recipe": "potato-leek-soup.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "chicken broth": {"accept": ["chicken (broth|stock)"], "reject": ["bouillon", "cube", "base"]},
+    "heavy cream": {"accept": ["heavy (whipping )?cream"], "reject": ["sour"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "yukon gold potatoes": {"accept": ["yukon", "gold (\\w+ )?potato"]},
+    "leek": {"accept": ["leek"]}
+  },
+  "absent": ["chives"]
+}

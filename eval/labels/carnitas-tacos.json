@@ -1,0 +1,15 @@
+{
+  "recipe": "carnitas-tacos.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "boneless pork shoulder": {"accept": ["pork shoulder", "pork butt", "boston butt"]},
+    "lime": {"accept": ["lime"], "reject": ["juice", "soda", "lemon", "chips", "pickle"]},
+    "ground cumin": {"accept": ["cumin"], "reject": ["seed"]},
+    "dried oregano": {"accept": ["oregano"]},
+    "corn tortilla": {"accept": ["corn tortilla", "tortilla.*corn"], "reject": ["chips", "flour"]},
+    "cilantro": {"accept": ["cilantro"], "reject": ["dressing", "paste", "rice", "lime", "seasoning"]},
+    "orange": {"accept": ["orange"], "reject": ["juice", "chicken", "marmalade", "soda", "pepper"]},
+    "white onion": {"accept": ["white onion"]}
+  }
+}

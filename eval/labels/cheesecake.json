@@ -1,0 +1,14 @@
+{
+  "recipe": "cheesecake.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "sour cream": {"accept": ["sour cream"], "reject": ["onion", "dip", "chips"]},
+    "vanilla extract": {"accept": ["vanilla extract"], "reject": ["imitation"]},
+    "graham cracker crumbs": {"accept": ["graham"], "reject": ["crust"]},
+    "cream cheese": {"accept": ["cream cheese"], "reject": ["whipped", "spread", "frosting"]}
+  },
+  "absent": ["sugar"]
+}

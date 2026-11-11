@@ -24,8 +24,24 @@ export function searchTerm(need: ShoppingNeed): string {
     .trim() || need.name;
 }
 
+/** The term, then the term with leading words dropped: "dried brown lentils", "brown lentils", "lentils". */
+export function fallbackTerms(term: string): string[] {
+  const words = term.split(' ');
+  return words.map((_, i) => words.slice(i).join(' '));
+}
+
+/** Catalog search that retries with a shorter term when the full one finds nothing. */
+async function searchWithFallback(need: ShoppingNeed, catalog: CatalogAdapter, opts: ResolveOptions) {
+  const query = { locationId: opts.locationId, limit: opts.candidatesPerNeed ?? 12 };
+  for (const term of fallbackTerms(searchTerm(need))) {
+    const products = await catalog.search(term, query);
+    if (products.length) return products;
+  }
+  return [];
+}
+
 async function resolveOne(need: ShoppingNeed, catalog: CatalogAdapter, opts: ResolveOptions): Promise<BasketLine> {
-  const products = await catalog.search(searchTerm(need), { locationId: opts.locationId, limit: opts.candidatesPerNeed ?? 12 });
+  const products = await searchWithFallback(need, catalog, opts);
   let ranked: Scored[] = rankCandidates(need, products, opts.pantry);
   let line = toBasketLine(need, ranked);
 

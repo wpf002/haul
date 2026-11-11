@@ -30,6 +30,8 @@ interface Label {
   expect: Record<string, Expect>;
   /** Keys the resolver should NOT produce (pantry staples, optional garnish). */
   absent?: string[];
+  /** The demo catalog only stocks the original recipes, so the offline run skips these. */
+  liveOnly?: boolean;
 }
 
 const args = process.argv.slice(2);
@@ -71,6 +73,7 @@ async function main() {
 
   for (const f of files) {
     const label = JSON.parse(readFileSync(join(dir, 'labels', f), 'utf8')) as Label;
+    if (label.liveOnly && !live) continue;
     const recipe = parseRecipeText(readFileSync(join(dir, 'recipes', label.recipe), 'utf8'));
     const { needs } = buildNeeds([{ recipe, servings: label.servings }], DEFAULT_PANTRY, { have: label.have });
     const lines = await resolveBasket(needs, cat, { locationId: label.locationId, pantry: DEFAULT_PANTRY, reranker });

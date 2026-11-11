@@ -1,0 +1,14 @@
+{
+  "recipe": "smash-burgers.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "brioche bun": {"accept": ["brioche.*bun", "bun.*brioche"]},
+    "yellow onion": {"accept": ["yellow onion"]},
+    "80 20 ground beef": {"accept": ["80.*ground (beef|chuck)", "ground (beef|chuck).*80"]},
+    "american cheese": {"accept": ["american"]},
+    "dill pickle chips": {"accept": ["dill pickle"], "reject": ["potato chip", "kettle", "snack"]},
+    "ketchup": {"accept": ["ketchup"]},
+    "yellow mustard": {"accept": ["yellow mustard", "classic.*mustard"], "reject": ["dijon", "honey", "spicy brown"]}
+  }
+}

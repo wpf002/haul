@@ -50,6 +50,7 @@ alias(U('stalk', 'count', 1), 'stalk', 'stalks', 'rib', 'ribs');
 alias(U('sprig', 'count', 1), 'sprig', 'sprigs');
 alias(U('slice', 'count', 1), 'slice', 'slices');
 alias(U('stick', 'count', 1), 'stick', 'sticks');
+alias(U('loaf', 'count', 1), 'loaf', 'loaves');
 alias(U('pinch', 'volume', 0.31), 'pinch', 'pinches');
 alias(U('dash', 'volume', 0.62), 'dash', 'dashes');
 

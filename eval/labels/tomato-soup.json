@@ -1,0 +1,14 @@
+{
+  "recipe": "tomato-soup.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "yellow onion": {"accept": ["yellow onion"]},
+    "garlic": {"accept": ["garlic"], "reject": ["powder", "salt", "bread", "seasoning", "pepper", "butter"]},
+    "chicken broth": {"accept": ["chicken (broth|stock)"], "reject": ["bouillon", "cube", "base"]},
+    "heavy cream": {"accept": ["heavy (whipping )?cream"], "reject": ["sour"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "whole peeled tomatoes": {"accept": ["whole.*tomato", "peeled tomato"], "reject": ["diced", "crushed", "sauce"]}
+  },
+  "absent": ["basil"]
+}

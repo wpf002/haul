@@ -23,6 +23,10 @@ describe('ingredient lines', () => {
     ['a pinch of nutmeg', { quantity: 1, unit: 'pinch', name: 'nutmeg' }],
     ['1 cup shredded cheddar cheese', { quantity: 1, unit: 'cup', name: 'shredded cheddar cheese' }],
     ['16 fl oz chicken broth', { quantity: 16, unit: 'fl oz', name: 'chicken broth' }],
+    // Regressions from the 50-recipe live eval.
+    ['1 (14.5 oz) can diced tomatoes', { quantity: 14.5, unit: 'oz', name: 'diced tomatoes' }],
+    ['3 ripe bananas, mashed', { quantity: 3, unit: null, name: 'bananas' }],
+    ['1 loaf brioche bread', { quantity: 1, unit: 'loaf', name: 'brioche bread' }],
   ])('%s', (line, expected) => {
     expect(p(line)).toMatchObject(expected);
   });

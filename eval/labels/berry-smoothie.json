@@ -1,0 +1,12 @@
+{
+  "recipe": "berry-smoothie.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "banana": {"accept": ["banana"], "reject": ["chips", "bread", "dried", "pudding", "baby food"]},
+    "honey": {"accept": ["honey"], "reject": ["mustard", "ham", "nut", "graham", "turkey", "bbq"]},
+    "frozen mixed berry": {"accept": ["mixed berr", "berry blend", "triple berry", "berry medley"]},
+    "vanilla greek yogurt": {"accept": ["vanilla.*greek", "greek.*vanilla"]},
+    "orange juice": {"accept": ["orange juice"]}
+  }
+}

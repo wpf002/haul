@@ -1,0 +1,14 @@
+{
+  "recipe": "apple-pie.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "ground cinnamon": {"accept": ["cinnamon"], "reject": ["stick", "sugar", "roll"]},
+    "ground nutmeg": {"accept": ["nutmeg"], "reject": ["whole"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "lemon": {"accept": ["lemon"], "reject": ["juice", "lime", "pepper", "curd", "cake", "tea"]},
+    "refrigerated pie crust": {"accept": ["pie crust"], "reject": ["graham", "frozen", "shell"]},
+    "granny smith apple": {"accept": ["granny smith"], "reject": ["juice", "sauce"]}
+  },
+  "absent": ["sugar"]
+}

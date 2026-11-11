@@ -1,0 +1,13 @@
+{
+  "recipe": "breakfast-burritos.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "flour tortilla": {"accept": ["flour tortilla", "tortilla.*flour"], "reject": ["corn", "chips"]},
+    "salsa": {"accept": ["salsa"], "reject": ["chips", "seasoning"]},
+    "breakfast sausage": {"accept": ["sausage"], "reject": ["biscuit", "sandwich", "gravy", "pizza"]},
+    "frozen hash brown": {"accept": ["hash ?brown"]},
+    "shredded cheddar cheese": {"accept": ["cheddar"], "reject": ["slice"]}
+  }
+}

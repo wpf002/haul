@@ -1,0 +1,14 @@
+{
+  "recipe": "chicken-enchiladas.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "boneless skinless chicken breasts": {"accept": ["chicken breast"], "reject": ["breaded", "nugget", "tender", "grilled", "strips"]},
+    "corn tortilla": {"accept": ["corn tortilla", "tortilla.*corn"], "reject": ["chips", "flour"]},
+    "sour cream": {"accept": ["sour cream"], "reject": ["onion", "dip", "chips"]},
+    "red enchilada sauce": {"accept": ["enchilada sauce"], "reject": ["green", "verde"]},
+    "shredded monterey jack cheese": {"accept": ["monterey jack"]},
+    "diced green chile": {"accept": ["green chil"]}
+  },
+  "absent": ["cilantro"]
+}

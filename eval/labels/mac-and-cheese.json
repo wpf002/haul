@@ -1,0 +1,13 @@
+{
+  "recipe": "mac-and-cheese.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "whole milk": {"accept": ["whole (\\w+ )*milk"], "reject": ["chocolate", "powder", "condensed", "evaporated"]},
+    "sharp cheddar cheese": {"accept": ["sharp cheddar"]},
+    "panko breadcrumb": {"accept": ["panko"]},
+    "elbow macaroni": {"accept": ["elbow"], "reject": ["dinner", "cheese"]},
+    "gruyere cheese": {"accept": ["gruy"]}
+  }
+}

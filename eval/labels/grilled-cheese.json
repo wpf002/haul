@@ -1,0 +1,10 @@
+{
+  "recipe": "grilled-cheese.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "sharp cheddar cheese": {"accept": ["sharp cheddar"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "sourdough bread": {"accept": ["sourdough"]}
+  }
+}

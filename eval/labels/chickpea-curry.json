@@ -1,0 +1,15 @@
+{
+  "recipe": "chickpea-curry.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "coconut milk": {"accept": ["coconut milk"], "reject": ["beverage", "creamer", "yogurt", "ice cream"]},
+    "diced tomatoes": {"accept": ["diced tomato"], "reject": ["green chil", "sauce"]},
+    "yellow onion": {"accept": ["yellow onion"]},
+    "ginger": {"accept": ["ginger"], "reject": ["ground", "ale", "candied", "snap", "dressing"]},
+    "baby spinach": {"accept": ["spinach"], "reject": ["dip", "frozen", "artichoke", "pasta"]},
+    "chickpea": {"accept": ["chickpea", "garbanzo"], "reject": ["hummus", "pasta", "snack", "flour"]},
+    "curry powder": {"accept": ["curry powder"]},
+    "basmati rice": {"accept": ["basmati"], "reject": ["ready", "microwav"]}
+  }
+}

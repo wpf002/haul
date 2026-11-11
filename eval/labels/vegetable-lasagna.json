@@ -1,0 +1,15 @@
+{
+  "recipe": "vegetable-lasagna.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "marinara sauce": {"accept": ["marinara"], "packs": 1},
+    "ricotta cheese": {"accept": ["ricotta"]},
+    "baby bella mushrooms": {"accept": ["cremini", "crimini", "baby bella"]},
+    "baby spinach": {"accept": ["spinach"], "reject": ["dip", "frozen", "artichoke", "pasta"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "lasagna noodles": {"accept": ["lasagna"], "reject": ["frozen", "dinner", "bake", "kit"]},
+    "shredded mozzarella cheese": {"accept": ["mozzarella"], "reject": ["fresh"]},
+    "zucchini": {"accept": ["zucchini"], "reject": ["spiral", "noodle"]}
+  }
+}

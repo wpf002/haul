@@ -1,0 +1,12 @@
+{
+  "recipe": "caesar-salad.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "romaine lettuce": {"accept": ["romaine"], "reject": ["kit", "caesar"]},
+    "grated parmesan cheese": {"accept": ["parmesan"], "reject": ["basil", "oregano", "garlic", "alfredo", "crisps", "dressing"]},
+    "lemon": {"accept": ["lemon"], "reject": ["juice", "lime", "pepper", "curd", "cake", "tea"]},
+    "crouton": {"accept": ["crouton"]},
+    "caesar dressing": {"accept": ["caesar"], "reject": ["kit", "crouton"]}
+  }
+}

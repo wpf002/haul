@@ -1,0 +1,16 @@
+{
+  "recipe": "pad-thai.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "shrimp": {"accept": ["shrimp"], "reject": ["breaded", "cocktail", "popcorn", "tempura", "ramen"]},
+    "fish sauce": {"accept": ["fish sauce"]},
+    "light brown sugar": {"accept": ["brown sugar"]},
+    "lime": {"accept": ["lime"], "reject": ["juice", "soda", "lemon", "chips", "pickle"]},
+    "green onions": {"accept": ["green onion", "scallion"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "rice noodles": {"accept": ["rice noodle", "pad thai noodle", "rice stick"]},
+    "bean sprouts": {"accept": ["bean sprout"]},
+    "roasted peanut": {"accept": ["peanut"], "reject": ["butter", "oil", "brittle", "candy", "sauce"]}
+  }
+}

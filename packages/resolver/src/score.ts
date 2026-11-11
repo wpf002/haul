@@ -19,12 +19,34 @@ const IDENTITY_SHIFTERS = [
   'sauce', 'soup', 'mix', 'kit', 'seasoned', 'seasoning', 'flavored', 'chips', 'crackers', 'candy',
   'dressing', 'marinade', 'soda', 'frozen', 'dried', 'powder', 'paste', 'juice', 'snack', 'bar', 'bars',
   'cooked', 'canned', 'smoked', 'breaded', 'spread', 'dip', 'drink', 'baby', 'pet', 'dog', 'cat',
-  'cereal', 'cookie', 'cookies', 'cake', 'pie', 'roasted', 'pickled', 'instant', 'lite', 'light', 'imitation',
+  'cereal', 'cookie', 'cookies', 'cake', 'pie', 'roasted', 'pickled', 'instant', 'lite', 'light', 'imitation', 'sparkling',
   // "butter" vs "peanut butter", "milk" vs "almond milk"
   'peanut', 'almond', 'cashew', 'coconut', 'oat', 'soy',
   // "onion" vs "green onions", "beans" vs "green beans"
   'green',
 ];
+const PHRASE_BONUS = 0.05;
+const SHIFT_STEP = 0.18;
+const COMBO_RE = /([a-z]+)\s+(?:and|&|with)\s+([a-z]+)/g;
+
+/** True when the need's words appear in order with nothing between them: "fish sauce" in "Premium Fish Sauce". */
+function hasPhrase(needTokens: string[], descriptionTokens: string[]): boolean {
+  if (!needTokens.length) return false;
+  for (let i = 0; i + needTokens.length <= descriptionTokens.length; i++) {
+    if (needTokens.every((t, j) => descriptionTokens[i + j] === t)) return true;
+  }
+  return false;
+}
+
+/** "Peas & Carrots" or "Basil and Oregano Parmesan": a combo whose other half the recipe didn't ask for. */
+function comboCount(description: string, needSet: Set<string>): number {
+  let count = 0;
+  for (const m of description.toLowerCase().matchAll(COMBO_RE)) {
+    if (!needSet.has(stem(m[1]!)) || !needSet.has(stem(m[2]!))) count++;
+  }
+  return count;
+}
+
 const STORE_BRANDS = ['kroger', 'simple truth', 'simple truth organic', 'private selection', 'home chef', 'heritage farm'];
 
 export interface Scored {
@@ -47,7 +69,8 @@ export function scoreCandidate(need: ShoppingNeed, product: RetailProduct, pantr
   // 2. Identity shift penalty.
   const needSet = new Set(needTokens);
   const shifters = IDENTITY_SHIFTERS.map(stem).filter((w) => prodTokens.has(w) && !needSet.has(w));
-  const shiftPenalty = Math.min(0.45, shifters.length * 0.18);
+  const shiftPenalty = Math.min(0.45, (shifters.length + comboCount(product.description, needSet)) * SHIFT_STEP);
+  const phraseBonus = hasPhrase(needTokens, tok(product.description).map(stem)) ? PHRASE_BONUS : 0;
 
   // 3. Size fit, deterministic.
   const size = parseRetailSize(product.sizeText);
@@ -76,13 +99,13 @@ export function scoreCandidate(need: ShoppingNeed, product: RetailProduct, pantr
   const unitPrice = unitPriceOf(product, plan.packs);
   const priceBonus = cheapestUnitPrice && unitPrice ? 0.05 * (cheapestUnitPrice / unitPrice) : 0;
 
-  const score = 0.55 * nameScore + 0.3 * sizeScore + prefBonus + priceBonus - shiftPenalty - stockPenalty;
+  const score = 0.55 * nameScore + 0.3 * sizeScore + phraseBonus + prefBonus + priceBonus - shiftPenalty - stockPenalty;
   return {
     product,
     score: Math.round(score * 1000) / 1000,
     packs: plan.packs,
     estimated: plan.estimated,
-    parts: { nameScore, sizeScore, shiftPenalty, stockPenalty, prefBonus, priceBonus },
+    parts: { nameScore, sizeScore, phraseBonus, shiftPenalty, stockPenalty, prefBonus, priceBonus },
     note: plan.note,
   };
 }

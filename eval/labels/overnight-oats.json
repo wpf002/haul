@@ -1,0 +1,13 @@
+{
+  "recipe": "overnight-oats.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "plain greek yogurt": {"accept": ["greek"], "reject": ["vanilla", "strawberry", "blueberry", "honey", "peach"]},
+    "honey": {"accept": ["honey"], "reject": ["mustard", "ham", "nut", "graham", "turkey", "bbq"]},
+    "blueberry": {"accept": ["blueberr"], "reject": ["muffin", "frozen", "dried", "jam", "yogurt"]},
+    "old fashioned oats": {"accept": ["old fashioned", "rolled oats"], "reject": ["instant", "quick", "steel"]},
+    "milk": {"accept": ["milk"], "reject": ["almond", "oat", "soy", "coconut", "chocolate", "condensed", "evaporated", "powder", "butter"]},
+    "chia seed": {"accept": ["chia"]}
+  }
+}

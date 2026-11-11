@@ -1,0 +1,13 @@
+{
+  "recipe": "chicken-quesadillas.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "flour tortilla": {"accept": ["flour tortilla", "tortilla.*flour"], "reject": ["corn", "chips"]},
+    "green bell pepper": {"accept": ["green (\\w+ )?bell pepper"]},
+    "sour cream": {"accept": ["sour cream"], "reject": ["onion", "dip", "chips"]},
+    "salsa": {"accept": ["salsa"], "reject": ["chips", "seasoning"]},
+    "rotisserie chicken": {"accept": ["rotisserie"]},
+    "shredded mexican blend cheese": {"accept": ["mexican"], "reject": ["slice"]}
+  }
+}

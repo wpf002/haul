@@ -1,0 +1,14 @@
+{
+  "recipe": "bbq-pulled-pork.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "boneless pork shoulder": {"accept": ["pork shoulder", "pork butt", "boston butt"]},
+    "light brown sugar": {"accept": ["brown sugar"]},
+    "smoked paprika": {"accept": ["smoked paprika"]},
+    "brioche bun": {"accept": ["brioche.*bun", "bun.*brioche"]},
+    "coleslaw mix": {"accept": ["cole ?slaw"], "reject": ["dressing"]},
+    "bbq sauce": {"accept": ["(bbq|barbecue) sauce"]},
+    "apple cider vinegar": {"accept": ["apple cider vinegar"]}
+  }
+}

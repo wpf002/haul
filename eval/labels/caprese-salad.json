@@ -1,0 +1,12 @@
+{
+  "recipe": "caprese-salad.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "mozzarella": {"accept": ["mozzarella"], "reject": ["shredded", "string", "stick", "pizza"]},
+    "heirloom tomatoes": {"accept": ["tomato"], "reject": ["sauce", "paste", "canned", "diced", "soup", "juice", "crushed", "sun"]},
+    "basil": {"accept": ["basil"], "reject": ["pesto", "seasoning", "dried"]},
+    "balsamic glaze": {"accept": ["balsamic glaze", "balsamic reduction"]},
+    "flaky sea salt": {"accept": ["sea salt", "flake"], "reject": ["chips", "caramel", "chocolate", "nuts", "crackers"]}
+  }
+}

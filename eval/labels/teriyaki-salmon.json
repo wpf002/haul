@@ -1,0 +1,13 @@
+{
+  "recipe": "teriyaki-salmon.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "salmon fillet": {"accept": ["salmon"], "reject": ["smoked", "canned", "pouch", "burger", "jerky"]},
+    "honey": {"accept": ["honey"], "reject": ["mustard", "ham", "nut", "graham", "turkey", "bbq"]},
+    "green onions": {"accept": ["green onion", "scallion"]},
+    "jasmine rice": {"accept": ["jasmine rice"], "reject": ["ready", "microwav", "minute"]},
+    "teriyaki sauce": {"accept": ["teriyaki"], "reject": ["jerky", "chicken"]},
+    "sesame seed": {"accept": ["sesame seed"], "reject": ["oil", "bun", "stick"]}
+  }
+}

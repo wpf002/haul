@@ -1,0 +1,12 @@
+{
+  "recipe": "strawberry-shortcake.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "vanilla extract": {"accept": ["vanilla extract"], "reject": ["imitation"]},
+    "strawberry": {"accept": ["strawberr"], "reject": ["frozen", "jam", "preserves", "yogurt", "dried"]},
+    "heavy whipping cream": {"accept": ["heavy (whipping )?cream", "whipping cream"]},
+    "powdered sugar": {"accept": ["powdered", "confectioner"]},
+    "angel food cake": {"accept": ["angel food"], "reject": ["mix"]}
+  }
+}

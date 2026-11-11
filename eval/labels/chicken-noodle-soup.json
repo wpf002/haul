@@ -1,0 +1,15 @@
+{
+  "recipe": "chicken-noodle-soup.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "boneless skinless chicken breasts": {"accept": ["chicken breast"], "reject": ["breaded", "nugget", "tender", "grilled", "strips"]},
+    "chicken broth": {"accept": ["chicken (broth|stock)"], "reject": ["bouillon", "cube", "base"]},
+    "carrot": {"accept": ["carrot"], "reject": ["juice", "cake", "peas", "baby food"]},
+    "celery": {"accept": ["celery"], "reject": ["salt", "seed"]},
+    "yellow onion": {"accept": ["yellow onion"]},
+    "wide egg noodles": {"accept": ["egg noodle"]},
+    "bay leaf": {"accept": ["bay lea"]}
+  },
+  "absent": ["parsley"]
+}

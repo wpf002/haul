@@ -1,0 +1,12 @@
+{
+  "recipe": "miso-soup.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "green onions": {"accept": ["green onion", "scallion"]},
+    "white miso paste": {"accept": ["miso"], "reject": ["soup", "dressing"]},
+    "firm tofu": {"accept": ["firm tofu", "tofu.*firm"], "reject": ["silken"]},
+    "shiitake mushroom": {"accept": ["shiitake"], "reject": ["dried"]}
+  },
+  "absent": ["water"]
+}

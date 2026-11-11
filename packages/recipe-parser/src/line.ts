@@ -13,7 +13,7 @@ const LEADING_PREP = [
   'freshly ground', 'freshly grated', 'grated fresh', 'finely chopped', 'roughly chopped', 'coarsely chopped', 'thinly sliced',
   'finely diced', 'finely minced', 'chopped', 'diced', 'minced', 'sliced', 'cubed', 'julienned',
   'softened', 'melted', 'cold', 'warm', 'packed', 'lightly packed', 'firmly packed', 'peeled',
-  'trimmed', 'rinsed', 'drained', 'fresh', 'freshly', 'room temperature',
+  'trimmed', 'rinsed', 'drained', 'fresh', 'freshly', 'room temperature', 'ripe',
 ];
 const LEADING_PREP_RE = new RegExp(`^(?:(?:${LEADING_PREP.join('|')})\\s+)+`, 'i');
 
@@ -141,7 +141,8 @@ export function parseIngredientLine(raw: string, section: string | null = null):
   while (words.length > 1 && SIZE_WORDS.has(words[0]!.toLowerCase())) notes.push(words.shift()!.toLowerCase());
   s = words.join(' ');
 
-  const prep = s.match(LEADING_PREP_RE);
+  // A canned or jarred item's name is its product name: "1 (14.5 oz) can diced tomatoes" keeps "diced".
+  const prep = pkg ? null : s.match(LEADING_PREP_RE);
   if (prep && prep[0].trim().length < s.length) {
     notes.push(prep[0].trim().toLowerCase());
     s = s.slice(prep[0].length);

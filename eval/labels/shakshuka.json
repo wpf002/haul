@@ -1,0 +1,16 @@
+{
+  "recipe": "shakshuka.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "yellow onion": {"accept": ["yellow onion"]},
+    "red bell pepper": {"accept": ["red (\\w+ )?bell pepper"]},
+    "garlic": {"accept": ["garlic"], "reject": ["powder", "salt", "bread", "seasoning", "pepper", "butter"]},
+    "ground cumin": {"accept": ["cumin"], "reject": ["seed"]},
+    "smoked paprika": {"accept": ["smoked paprika"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "crushed tomatoes": {"accept": ["crushed tomato"]},
+    "crumbled feta cheese": {"accept": ["feta"]}
+  },
+  "absent": ["olive oil", "parsley"]
+}

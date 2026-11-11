@@ -14,6 +14,9 @@ const SYNONYMS: Record<string, string> = {
   'ground black pepper': 'black pepper', pepper: 'black pepper',
   'kosher salt': 'salt', 'sea salt': 'salt', 'table salt': 'salt',
   'canola oil': 'vegetable oil', 'neutral oil': 'vegetable oil',
+  'basil leaves': 'basil', 'mint leaves': 'mint', 'sage leaves': 'sage', 'thyme leaves': 'thyme', 'parsley leaves': 'parsley',
+  // US stores sell cremini as "baby bella".
+  'cremini mushrooms': 'baby bella mushrooms', 'crimini mushrooms': 'baby bella mushrooms', 'cremini mushroom': 'baby bella mushrooms',
 };
 
 const SINGULAR_EXCEPTIONS = new Set(['peas', 'oats', 'grits', 'greens', 'chives', 'lentils', 'beans', 'noodles', 'tomatoes', 'potatoes', 'flakes', 'chips', 'crumbs', 'onions', 'thighs', 'breasts', 'wings', 'sprouts']);
@@ -25,15 +28,18 @@ export function ingredientKey(name: string): string {
   const last = words[words.length - 1] ?? '';
   if (!SINGULAR_EXCEPTIONS.has(last)) {
     if (/ies$/.test(last)) words[words.length - 1] = last.replace(/ies$/, 'y');
+    else if (/leaves$/.test(last)) words[words.length - 1] = last.replace(/leaves$/, 'leaf');
     else if (/(ches|shes|xes|oes)$/.test(last)) words[words.length - 1] = last.replace(/es$/, '');
-    else if (/[^s]s$/.test(last)) words[words.length - 1] = last.slice(0, -1);
+    // "asparagus" and "hummus" end in -us and aren't plurals.
+    else if (/[^su]s$/.test(last)) words[words.length - 1] = last.slice(0, -1);
   }
   n = words.join(' ');
   return SYNONYMS[n] ?? n;
 }
 
 const ALLERGEN_RE = /\b(peanut|almond|walnut|pecan|cashew|pistachio|hazelnut|macadamia|shrimp|crab|lobster|shellfish|sesame|tahini)s?\b/i;
-const INFANT_RE = /\b(baby|infant|formula)\b/i;
+// "baby spinach" and "baby carrots" are produce, not infant items.
+const INFANT_RE = /\b(infant|formula|baby (?:food|formula|cereal|puree))\b/i;
 const ALCOHOL_RE = /\b(wine|beer|vodka|rum|bourbon|whiskey|whisky|brandy|sherry|tequila|gin|sake|liqueur|cognac|vermouth)\b/i;
 
 export interface NeedsOptions {
@@ -96,7 +102,7 @@ export function buildNeeds(
       const flags = new Set<ShoppingNeed['flags'][number]>();
       if (ALLERGEN_RE.test(key) || avoidRe?.test(key)) flags.add('allergen-sensitive');
       if (INFANT_RE.test(key)) flags.add('infant');
-      if (ALCOHOL_RE.test(key)) flags.add('alcohol');
+      if (ALCOHOL_RE.test(key) && !/\bvinegar\b/.test(key)) flags.add('alcohol');
       if (ing.optional) flags.add('optional');
 
       const existing = byKey.get(key);

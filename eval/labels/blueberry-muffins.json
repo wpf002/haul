@@ -1,0 +1,14 @@
+{
+  "recipe": "blueberry-muffins.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "baking powder": {"accept": ["baking powder"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "whole milk": {"accept": ["whole (\\w+ )*milk"], "reject": ["chocolate", "powder", "condensed", "evaporated"]},
+    "vanilla extract": {"accept": ["vanilla extract"], "reject": ["imitation"]},
+    "blueberry": {"accept": ["blueberr"], "reject": ["muffin", "frozen", "dried", "jam", "yogurt"]}
+  },
+  "absent": ["all-purpose flour", "sugar", "salt"]
+}

@@ -93,3 +93,29 @@ describe('confidenceOf', () => {
     expect(ranked[0]?.product.productId).toBe('real');
   });
 });
+
+// Regressions from the 50-recipe live eval.
+describe('rankCandidates on live eval misses', () => {
+  const top = (n: ShoppingNeed, products: RetailProduct[]) => rankCandidates(n, products, DEFAULT_PANTRY)[0]?.product.productId;
+
+  it('ranks plain grated parmesan above a basil and oregano blend', () => {
+    const parmesan = need('grated parmesan', 50, 'mass');
+    expect(top(parmesan, [product('herb', 'Kroger® Basil and Oregano Grated Parmesan Cheese', '8 oz'), product('plain', 'Kroger® Grated Parmesan Cheese', '8 oz')])).toBe('plain');
+  });
+
+  it('ranks frozen peas above frozen peas & carrots', () => {
+    const peas = need('frozen peas', 280, 'mass');
+    expect(top(peas, [product('mix', 'Kroger® Frozen Peas & Carrots', '12 oz'), product('peas', 'Kroger® Frozen Sweet Peas', '12 oz')])).toBe('peas');
+  });
+
+  it('ranks fish sauce above a tartar sauce from a fish-fry brand', () => {
+    const fishSauce = need('fish sauce', 30, 'volume');
+    const tartar = { ...product('tartar', 'Tartar Sauce', '6.76 fl oz'), brand: 'Louisiana Fish Fry' };
+    expect(top(fishSauce, [tartar, product('fish', 'Thai Kitchen® Premium Fish Sauce', '6.76 fl oz')])).toBe('fish');
+  });
+
+  it('ranks still white wine above sparkling', () => {
+    const wine = need('dry white wine', 240, 'volume');
+    expect(top(wine, [product('bubbly', 'Cook\'s Sparkling Dry White Wine', '750 ml'), product('still', 'Barefoot Dry White Wine', '750 ml')])).toBe('still');
+  });
+});

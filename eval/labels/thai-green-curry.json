@@ -1,0 +1,15 @@
+{
+  "recipe": "thai-green-curry.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "boneless skinless chicken thighs": {"accept": ["chicken thigh"], "reject": ["breast"]},
+    "coconut milk": {"accept": ["coconut milk"], "reject": ["beverage", "creamer", "yogurt", "ice cream"]},
+    "red bell pepper": {"accept": ["red (\\w+ )?bell pepper"]},
+    "fish sauce": {"accept": ["fish sauce"]},
+    "lime": {"accept": ["lime"], "reject": ["juice", "soda", "lemon", "chips", "pickle"]},
+    "green curry paste": {"accept": ["green curry"]},
+    "sugar snap peas": {"accept": ["snap pea"]},
+    "basil": {"accept": ["basil"], "reject": ["pesto", "dried", "seasoning"]}
+  }
+}

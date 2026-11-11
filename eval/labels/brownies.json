@@ -1,0 +1,13 @@
+{
+  "recipe": "brownies.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "vanilla extract": {"accept": ["vanilla extract"], "reject": ["imitation"]},
+    "unsweetened cocoa powder": {"accept": ["cocoa"], "reject": ["mix", "hot"]},
+    "semisweet chocolate chips": {"accept": ["semi-?sweet.*(chip|morsel)"]}
+  },
+  "absent": ["sugar", "all-purpose flour"]
+}

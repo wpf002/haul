@@ -1,0 +1,15 @@
+{
+  "recipe": "greek-salad.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "cherry tomatoes": {"accept": ["cherry tomato", "grape tomato"]},
+    "red onion": {"accept": ["red onion"]},
+    "green bell pepper": {"accept": ["green (\\w+ )?bell pepper"]},
+    "dried oregano": {"accept": ["oregano"]},
+    "english cucumber": {"accept": ["cucumber"], "reject": ["pickle"]},
+    "kalamata olive": {"accept": ["kalamata"]},
+    "feta cheese": {"accept": ["feta"]},
+    "red wine vinegar": {"accept": ["red wine vinegar"]}
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "recipe": "lentil-soup.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "yellow onion": {"accept": ["yellow onion"]},
+    "carrot": {"accept": ["carrot"], "reject": ["juice", "cake", "peas", "baby food"]},
+    "celery": {"accept": ["celery"], "reject": ["salt", "seed"]},
+    "diced tomatoes": {"accept": ["diced tomato"], "reject": ["green chil", "sauce"]},
+    "vegetable broth": {"accept": ["vegetable (broth|stock)"], "reject": ["bouillon", "cube", "base"]},
+    "ground cumin": {"accept": ["cumin"], "reject": ["seed"]},
+    "lemon": {"accept": ["lemon"], "reject": ["juice", "lime", "pepper", "curd", "cake", "tea"]},
+    "dried brown lentils": {"accept": ["lentil"], "reject": ["soup", "pasta", "chips"]}
+  }
+}

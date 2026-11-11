@@ -1,0 +1,14 @@
+{
+  "recipe": "french-toast.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "egg": {"accept": ["egg"], "reject": ["substitute", "whites", "noodle", "beaters", "salad", "bites"]},
+    "whole milk": {"accept": ["whole (\\w+ )*milk"], "reject": ["chocolate", "powder", "condensed", "evaporated"]},
+    "ground cinnamon": {"accept": ["cinnamon"], "reject": ["stick", "sugar", "roll"]},
+    "vanilla extract": {"accept": ["vanilla extract"], "reject": ["imitation"]},
+    "unsalted butter": {"accept": ["unsalted butter"]},
+    "brioche bread": {"accept": ["brioche"], "reject": ["bun"]}
+  },
+  "absent": ["powdered sugar"]
+}
