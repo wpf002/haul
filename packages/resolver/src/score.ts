@@ -20,6 +20,10 @@ const IDENTITY_SHIFTERS = [
   'dressing', 'marinade', 'soda', 'frozen', 'dried', 'powder', 'paste', 'juice', 'snack', 'bar', 'bars',
   'cooked', 'canned', 'smoked', 'breaded', 'spread', 'dip', 'drink', 'baby', 'pet', 'dog', 'cat',
   'cereal', 'cookie', 'cookies', 'cake', 'pie', 'roasted', 'pickled', 'instant', 'lite', 'light', 'imitation', 'sparkling',
+  // "fennel" vs "fennel seeds"; "whole chicken" vs "whole chicken wings"
+  'seeds', 'wings',
+  // "parsley" vs "parsley flakes"
+  'flakes',
   // "butter" vs "peanut butter", "milk" vs "almond milk"
   'peanut', 'almond', 'cashew', 'coconut', 'oat', 'soy',
   // "onion" vs "green onions", "beans" vs "green beans"

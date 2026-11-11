@@ -27,8 +27,32 @@ describe('ingredient lines', () => {
     ['1 (14.5 oz) can diced tomatoes', { quantity: 14.5, unit: 'oz', name: 'diced tomatoes' }],
     ['3 ripe bananas, mashed', { quantity: 3, unit: null, name: 'bananas' }],
     ['1 loaf brioche bread', { quantity: 1, unit: 'loaf', name: 'brioche bread' }],
+    // Regressions from the held-out eval.
+    ['1 Tbsp. + 2 tsp. olive oil (divided)', { unit: 'tbsp', name: 'olive oil' }],
+    ['1.5 lb / 750 g chicken thigh fillets', { quantity: 1.5, unit: 'lb', name: 'chicken thigh fillets' }],
+    ['1 and 1/3 cups (320ml) warm water', { quantity: 4 / 3, unit: 'cup', name: 'water' }],
+    ['3 green onions* sliced', { quantity: 3, name: 'green onions' }],
+    ['4 carrots cut into 2-inch chunks', { quantity: 4, name: 'carrots' }],
+    ['1 cup chopped fresh cilantro leaves and stems', { name: 'cilantro' }],
+    ['1 (14.5 oz) can fire-roasted diced tomatoes', { name: 'fire-roasted diced tomatoes' }],
+    ['8 slices thick cut bacon', { name: 'thick cut bacon' }],
+    ['Pinch salt', { name: 'salt' }],
+    ['1 bulb of fennel, tops removed', { quantity: 1, name: 'fennel' }],
+    ['3 cups neutral oil ((for deep-frying; enough for 1½ inches (3.8 cm) of oil in the pot))', { quantity: 3, unit: 'cup', name: 'neutral oil' }],
+    ['1 Tbsp olive or avocado oil', { name: 'olive oil' }],
+    ['2 tsp smoked or sweet paprika', { name: 'smoked paprika' }],
+    ['1 cup long- or short-grain brown rice', { name: 'long-grain brown rice' }],
+    ['15 oz canned or frozen corn (drained)', { name: 'frozen corn' }],
+    ['Flour or corn tortillas', { name: 'flour tortillas' }],
+    ['1 cup milk or heavy cream', { name: 'milk' }],
+    ['1 Tbsp green onion or parsley (to garnish)', { name: 'green onion', optional: true }],
+    ['1 tablespoon fresh lime juice (plus wedges for serving)', { name: 'lime juice', optional: false }],
   ])('%s', (line, expected) => {
     expect(p(line)).toMatchObject(expected);
+  });
+
+  it('adds a second amount joined by +', () => {
+    expect(p('1 Tbsp. + 2 tsp. olive oil').quantity).toBeCloseTo(5 / 3);
   });
 });
 

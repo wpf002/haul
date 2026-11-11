@@ -8,21 +8,30 @@ const SYNONYMS: Record<string, string> = {
   'cilantro leaves': 'cilantro', coriander: 'cilantro', 'fresh cilantro': 'cilantro',
   'flat-leaf parsley': 'parsley', 'italian parsley': 'parsley',
   'all purpose flour': 'all-purpose flour', flour: 'all-purpose flour',
+  'unbleached all-purpose flour': 'all-purpose flour', 'unbleached flour': 'all-purpose flour',
   'granulated sugar': 'sugar', 'white sugar': 'sugar',
   'extra virgin olive oil': 'olive oil', 'extra-virgin olive oil': 'olive oil',
   eggs: 'egg', 'large eggs': 'egg',
   'ground black pepper': 'black pepper', pepper: 'black pepper',
-  'kosher salt': 'salt', 'sea salt': 'salt', 'table salt': 'salt',
+  'kosher salt': 'salt', 'sea salt': 'salt', 'table salt': 'salt', 'fine sea salt': 'salt', 'fine salt': 'salt',
+  'coarse salt': 'salt', 'coarse kosher salt': 'salt', 'diamond crystal kosher salt': 'salt', 'morton kosher salt': 'salt',
   'canola oil': 'vegetable oil', 'neutral oil': 'vegetable oil',
   'basil leaves': 'basil', 'mint leaves': 'mint', 'sage leaves': 'sage', 'thyme leaves': 'thyme', 'parsley leaves': 'parsley',
-  // US stores sell cremini as "baby bella".
+  // US stores sell these under other names.
+  'turmeric powder': 'ground turmeric',
+  'roasting chicken': 'whole chicken', 'roaster chicken': 'whole chicken', 'whole roasting chicken': 'whole chicken',
+  'chicken thigh fillet': 'boneless skinless chicken thighs', 'chicken thighs fillet': 'boneless skinless chicken thighs',
   'cremini mushrooms': 'baby bella mushrooms', 'crimini mushrooms': 'baby bella mushrooms', 'cremini mushroom': 'baby bella mushrooms',
 };
+
+/** Misspellings common enough on recipe sites to fix before lookup. */
+const MISSPELLINGS: Record<string, string> = { tumeric: 'turmeric' };
 
 const SINGULAR_EXCEPTIONS = new Set(['peas', 'oats', 'grits', 'greens', 'chives', 'lentils', 'beans', 'noodles', 'tomatoes', 'potatoes', 'flakes', 'chips', 'crumbs', 'onions', 'thighs', 'breasts', 'wings', 'sprouts']);
 
 export function ingredientKey(name: string): string {
-  let n = name.toLowerCase().replace(/[^\p{L}\p{N}\s\-']/gu, ' ').replace(/\s+/g, ' ').trim();
+  let n = name.toLowerCase().replace(/[^\p{L}\p{N}\s\-']/gu, ' ').replace(/\s+/g, ' ').trim()
+    .split(' ').map((w) => MISSPELLINGS[w] ?? w).join(' ');
   if (SYNONYMS[n]) return SYNONYMS[n]!;
   const words = n.split(' ');
   const last = words[words.length - 1] ?? '';

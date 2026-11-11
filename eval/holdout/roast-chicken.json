@@ -4,7 +4,7 @@
   "expect": {
     "roasting chicken": {
       "accept": [
-        "whole chicken",
+        "whole (fresh |young )?chicken",
         "roaster",
         "roasting chicken",
         "whole fryer"

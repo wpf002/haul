@@ -119,3 +119,35 @@ describe('rankCandidates on live eval misses', () => {
     expect(top(wine, [product('bubbly', 'Cook\'s Sparkling Dry White Wine', '750 ml'), product('still', 'Barefoot Dry White Wine', '750 ml')])).toBe('still');
   });
 });
+
+// Regressions from the held-out eval.
+describe('held-out eval misses', () => {
+  it.each([
+    ['tumeric powder', 'ground turmeric'],
+    ['fine sea salt', 'salt'],
+    ['diamond crystal kosher salt', 'salt'],
+    ['roasting chicken', 'whole chicken'],
+    ['chicken thigh fillets', 'boneless skinless chicken thighs'],
+    ['unbleached all-purpose flour', 'all-purpose flour'],
+  ])('keys %s as %s', (name, key) => {
+    expect(ingredientKey(name)).toBe(key);
+  });
+
+  it('ranks a fennel bulb above fennel seeds', () => {
+    const fennel = need('fennel', 1, 'count');
+    const ranked = rankCandidates(fennel, [product('seeds', 'McCormick® Fennel Seeds', '1.62 oz'), product('bulb', 'Organic Fennel', '1 each')], DEFAULT_PANTRY);
+    expect(ranked[0]?.product.productId).toBe('bulb');
+  });
+
+  it('ranks fresh parsley above parsley flakes', () => {
+    const parsley = need('parsley', 1, 'count');
+    const ranked = rankCandidates(parsley, [product('flakes', 'Smart Way™ Parsley Flakes', '0.4 oz'), product('fresh', 'Fresh Italian Parsley', '1 bunch')], DEFAULT_PANTRY);
+    expect(ranked[0]?.product.productId).toBe('fresh');
+  });
+
+  it('ranks a whole chicken above whole chicken wings', () => {
+    const chicken = need('whole chicken', 1, 'count');
+    const ranked = rankCandidates(chicken, [product('wings', 'Smart Way™ Fresh Uncooked Whole Chicken Wings', '3.25 lb'), product('bird', 'Miller Poultry Whole Fresh Chicken', '1 lb')], DEFAULT_PANTRY);
+    expect(ranked[0]?.product.productId).toBe('bird');
+  });
+});

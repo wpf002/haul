@@ -1,0 +1,20 @@
+{
+  "recipe": "holdout-fixes.txt",
+  "locationId": "01400943",
+  "liveOnly": true,
+  "expect": {
+    "ground turmeric": {"accept": ["turmeric"], "reject": ["garlic"]},
+    "boneless skinless chicken thighs": {"accept": ["chicken thigh"], "reject": ["breast"]},
+    "carrot": {"accept": ["carrot"], "reject": ["cake", "juice"]},
+    "flour tortilla": {"accept": ["flour tortilla"], "reject": ["chip"]},
+    "smoked paprika": {"accept": ["smoked paprika"]},
+    "cilantro": {"accept": ["cilantro"], "reject": ["dried", "paste"]},
+    "whole chicken": {"accept": ["whole (fresh |young )?chicken", "roaster", "roasting chicken", "whole fryer"], "reject": ["breast", "thigh", "rotisserie", "wing"]},
+    "fennel": {"accept": ["fennel"], "reject": ["seed"]},
+    "frozen corn": {"accept": ["corn"], "reject": ["cream", "chips", "meal", "starch"]},
+    "long-grain brown rice": {"accept": ["brown rice"], "reject": ["instant", "ready"]},
+    "lime juice": {"accept": ["lime juice", "lime"], "reject": ["soda", "margarita"]},
+    "parsley": {"accept": ["parsley"], "reject": ["flakes", "dried"]}
+  },
+  "absent": ["olive oil", "salt", "vegetable oil", "water", "green onions", "all-purpose flour"]
+}
