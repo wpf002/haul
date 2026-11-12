@@ -98,10 +98,12 @@ The eval is the gate. Target is 85% of lines acceptable without edits on 50 real
 
 Two services from this repo plus a Postgres plugin.
 
-- **api**: build `pnpm install && pnpm db:generate && pnpm --filter @haul/api build`, start `pnpm --filter @haul/db exec prisma migrate deploy && pnpm --filter @haul/api start`
-- **web**: build `pnpm install && pnpm --filter @haul/web build`, start `pnpm --filter @haul/web start`, set `NEXT_PUBLIC_API_URL`
+Build and start commands are set as `RAILPACK_BUILD_CMD` / `RAILPACK_START_CMD` service variables. Deploy with `railway up --service api` and `railway up --service web`.
 
-Set `NODE_ENV=production` (turns on secure cookies), and point `WEB_ORIGIN`, `API_PUBLIC_URL`, `KROGER_REDIRECT_URI` at the real domains. Put web and api on the same parent domain so the session cookie stays first-party.
+- **api**: build `pnpm turbo run build --filter=@haul/api`, start `pnpm --filter @haul/db exec prisma migrate deploy && node apps/api/dist/server.js`
+- **web**: build `pnpm turbo run build --filter=@haul/web`, start `pnpm --filter @haul/web start`
+
+The browser only talks to web. Web proxies `/api/*` to `API_ORIGIN` (the api's public URL), because `*.up.railway.app` subdomains count as separate sites and would drop the session cookie. So on web set `NEXT_PUBLIC_API_URL=/api` and `API_ORIGIN`. On api, point `WEB_ORIGIN` at web, and `API_PUBLIC_URL` and `KROGER_REDIRECT_URI` at `<web>/api/...`. Register that redirect URI in the Kroger developer portal. `NODE_ENV=production` turns on secure cookies.
 
 ## Status (v1.0)
 
