@@ -17,7 +17,7 @@
     "@haul/units": "workspace:*",
     "@haul/retailers": "workspace:*",
     "@haul/recipe-parser": "workspace:*",
-    "zod": "^3.24.0"
+    "zod": "^4.6.6"
   },
   "devDependencies": {}
 }
