@@ -8,6 +8,6 @@
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run --passWithNoTests"
   },
-  "dependencies": { "@haul/core": "workspace:*", "zod": "^3.24.0" },
+  "dependencies": { "@haul/core": "workspace:*", "zod": "^4.6.6" },
   "devDependencies": {}
 }

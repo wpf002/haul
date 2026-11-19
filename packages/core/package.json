@@ -8,6 +8,6 @@
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run --passWithNoTests"
   },
-  "dependencies": { "zod": "^3.24.0" },
+  "dependencies": { "zod": "^4.6.6" },
   "devDependencies": {}
 }
